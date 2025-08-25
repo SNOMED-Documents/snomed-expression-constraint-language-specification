@@ -380,7 +380,7 @@ UTF8-tail = %x80-BF
 
 ## Informative Comments
 
-This section provides a short description of each ABNF rule listed above. The related brief and long syntax rules are grouped together with the same description. Where the syntaxes are the same, the rule is listed once and preceded with the text "BS/LS". Where the brief and long syntaxes are different, both rules are listed separately and preceded with "BS" and "LS" respectively.
+This section provides a short description of each ABNF rule listed above. The related brief and long syntax rules are grouped together with the same description.&#x20;
 
 <pre class="language-abnf" data-title="Brief Syntax and Long Syntax with comments" data-overflow="wrap"><code class="lang-abnf">expressionConstraint = ws ( refinedExpressionConstraint / compoundExpressionConstraint / dottedExpressionConstraint / subExpressionConstraint ) ws
 ; An expression constraint is either a refined expression constraint, a compound expression constraint, a dotted expression constraint, or a sub expression constraint.
@@ -588,28 +588,30 @@ termKeyword = ("t"/"T") ("e"/"E") ("r"/"R") ("m"/"M")
 
 typedSearchTerm = ( [ matchKeyword ws ":" ws ] matchSearchTermSet ) / ( wild ws ":" ws wildSearchTermSet )
 ; A typed search term is either a match search term set or a wild search term set. A match search term set is optionally preceded by the text "match" and a colon. A wild search term set must be preceded by the text "wild" and a colon.
-</code></pre>
+
+typedSearchTermSet = "(" ws typedSearchTerm *(mws typedSearchTerm) ws ")"
+; A typed search term set consists of one or more typed search terms separated by mandatory white space and enclosed in brackets.
+
+wild = ("w"/"W") ("i"/"I") ("l"/"L") ("d"/"D")
+; A wildcard search type is indicated by the word "wild" (case insensitive).
+
+matchKeyword = ("m"/"M") ("a"/"A") ("t"/"T") ("c"/"C") ("h"/"H")
+; A word prefix any order search is indicated by the word "match" (case insensitive).
+
+matchSearchTerm = 1(nonwsNonEscapedChar / escapedChar)
+; A term used in a match search includes one or more of any non-whitespace printable character (other than double quotes or backslash) or an escaped character.
+
+matchSearchTermSet = QM ws matchSearchTerm *(mws matchSearchTerm) ws QM
+; A term set in a match search includes one or more terms separated by mandatory whitespace and enclosed in quotation marks.
+
+wildSearchTerm = 1(anyNonEscapedChar / escapedWildChar)
+<strong>; A term used in a wildcard search includes one or more printable characters (other than double quotes or backslash) or an escaped character.
+</strong></code></pre>
 
 \
 \
-**BS/LS: typedSearchTermSet** = "(" ws typedSearchTerm \*(mws typedSearchTerm) ws ")"
-
-\| A typed search term set consists of one or more typed search terms separated by mandatory white space and enclosed in brackets.\
-**BS/LS: wild** = ("w"/"W") ("i"/"I") ("l"/"L") ("d"/"D")
-
-\| A wildcard search type is indicated by the word "wild" (case insensitive).\
-\*\*BS/LS: **matchKeyword** \*\*= ("m"/"M") ("a"/"A") ("t"/"T") ("c"/"C") ("h"/"H")
-
-\| A word prefix any order search is indicated by the word "match" (case insensitive).\
-\*\*BS/LS: \*\***matchSearchTerm** \*\*\*_= 1_(nonwsNonEscapedChar / escapedChar)
-
-\| A term used in a match search includes one or more of any non-whitespace printable character (other than double quotes or backslash) or an escaped character.\
-\*\*BS/LS: **matchSearchTermSet** \*\*= QM ws matchSearchTerm \*(mws matchSearchTerm) ws QM
-
-\| A term set in a match search includes one or more terms separated by mandatory whitespace and enclosed in quotation marks.\
-\*\*BS/LS: **wildSearchTerm** \*_= 1_(anyNonEscapedChar / escapedWildChar)
-
-\| A term used in a wildcard search includes one or more printable characters (other than double quotes or backslash) or an escaped character.\
+\*\*BS/LS: \
+\*\*BS/LS: \
 \*\*BS/LS: **wildSearchTermSet** \*\*= QM wildSearchTerm QM
 
 \| A term set in a wildcard search includes a wildcard search term (optionally including whitespace) enclosed in quotation marks.\
