@@ -382,202 +382,216 @@ UTF8-tail = %x80-BF
 
 This section provides a short description of each ABNF rule listed above. The related brief and long syntax rules are grouped together with the same description. Where the syntaxes are the same, the rule is listed once and preceded with the text "BS/LS". Where the brief and long syntaxes are different, both rules are listed separately and preceded with "BS" and "LS" respectively.
 
-**BS/LS: expressionConstraint** = ws ( refinedExpressionConstraint / compoundExpressionConstraint / dottedExpressionConstraint / subExpressionConstraint ) ws
+<pre class="language-abnf" data-title="Brief Syntax and Long Syntax with comments" data-overflow="wrap"><code class="lang-abnf">expressionConstraint = ws ( refinedExpressionConstraint / compoundExpressionConstraint / dottedExpressionConstraint / subExpressionConstraint ) ws
+; An expression constraint is either a refined expression constraint, a compound expression constraint, a dotted expression constraint, or a sub expression constraint.
 
-An expression constraint is either a refined expression constraint, a compound expression constraint, a dotted expression constraint, or a sub expression constraint.\
+refinedExpressionConstraint = subExpressionConstraint ws ":" ws eclRefinement
+; A refined expression constraint includes a subexpression constraint followed by a refinement.
 
+compoundExpressionConstraint = conjunctionExpressionConstraint / disjunctionExpressionConstraint / exclusionExpressionConstraint
+; A compound expression constraint contains two or more expression constraints joined by either a conjunction, disjunction or exclusion. When potential ambiguity in binary operator precedence may occur, round brackets must be used to clearly disambiguate the order in which these operator are applied. Brackets are not required in expression constraints in which all binary operators are conjunctions, or all binary operators are disjunctions. Please note that unary operators (i.e. constraint operators and member of functions) are always applied before binary operators (i.e. conjunction, disjunction and exclusion).
 
-**BS/LS: refinedExpressionConstraint** = subExpressionConstraint ws ":" ws eclRefinement
+conjunctionExpressionConstraint = subExpressionConstraint 1(ws conjunction ws subExpressionConstraint)
+; A conjunction expression constraint combines two or more expression constraints with a conjunction ("and") operator. More than one conjunction may be used without brackets. However any compound expression constraint (using a different binary operator) that appears within a conjunction expression constraint must be enclosed by brackets.
 
-\| A refined expression constraint includes a subexpression constraint followed by a refinement.\
+disjunctionExpressionConstraint = subExpressionConstraint 1(ws disjunction ws subExpressionConstraint)
+; A disjunction expression constraint combines two or more expression constraints with a disjunction ("or") operator. More than one disjunction may be used without brackets. However any compound expression constraint (using a different binary operator) that appears within a disjunction expression constraint must be enclosed by brackets.
 
+exclusionExpressionConstraint = subExpressionConstraint ws exclusion ws subExpressionConstraint
+; An exclusion expression constraint combines two expression constrains with an exclusion ("minus") operator. A single exclusion operator may be used without brackets. However when the operands of the exclusion expression constraint are compound, these compound expression constraints must be enclosed by brackets.
 
-**BS/LS: compoundExpressionConstraint** = conjunctionExpressionConstraint / disjunctionExpressionConstraint / exclusionExpressionConstraint
+dottedExpressionConstraint = subExpressionConstraint 1*(ws dottedExpressionAttribute)
+; A dotted expression constraint contains a sub expression constraint, followed by one or more dotted attributes. When a single dotted attribute is used, the result is the set of attribute values (for the given attribute name) of each concept that results from evaluating the subExpressionConstraint. When more than one dotted attribute is used, each dottedExpressionAttribute is sequentially evaluated (from left to right) against the given result set.
 
-&#x20;A compound expression constraint contains two or more expression constraints joined by either a conjunction, disjunction or exclusion. When potential ambiguity in binary operator precedence may occur, round brackets must be used to clearly disambiguate the order in which these operator are applied. Brackets are not required in expression constraints in which all binary operators are conjunctions, or all binary operators are disjunctions. Please note that unary operators (i.e. constraint operators and member of functions) are always applied before binary operators (i.e. conjunction, disjunction and exclusion).\
+dottedExpressionAttribute = dot ws eclAttributeName
+; A dotted expression attribute consists of a 'dot', followed by an attribute name. Please note that the attribute name may be represented by any sub expression constraint.
 
+subExpressionConstraint = [constraintOperator ws] ( ( [memberOf ws] (eclFocusConcept / "(" ws expressionConstraint ws ")") *(ws memberFilterConstraint)) / (eclFocusConcept / "(" ws expressionConstraint ws ")") ) *(ws (descriptionFilterConstraint / conceptFilterConstraint)) [ws historySupplement]
+; A sub expression constraint optionally begins with a constraint operator and/or a memberOf function. It then includes either a single focus concept or an expression constraint (enclosed in brackets). If the memberOf function is applied, a member filter constraint may be used. A sub expression constraint may then optionally include one or more concept or description filter constraints, followed optionally by a history supplement.Notes: A memberOf function should be used only when the eclFocusConcept or expressionConstraint refers to a reference set concept, a set of reference set concepts, or a wild card. When both a constraintOperator and a memberOf function are used, they are applied from the inside to out (i.e. from right to left) - see section on the Order of Operation. Therefore, if a constraintOperator is followed by a memberOf function, then the memberOf function is processed prior to the constraintOperator.
 
-\*\*BS/LS:\*_**conjunctionExpressionConstraint** = subExpressionConstraint 1_(ws conjunction ws subExpressionConstraint)
+eclFocusConcept = eclConceptReference / wildCard
+; A focus concept is a concept reference or a wild card.
 
-\| A conjunction expression constraint combines two or more expression constraints with a conjunction ("and") operator. More than one conjunction may be used without brackets. However any compound expression constraint (using a different binary operator) that appears within a conjunction expression constraint must be enclosed by brackets.\
-\*\*BS/LS:\*_**disjunctionExpressionConstraint** = subExpressionConstraint 1_(ws disjunction ws subExpressionConstraint)
+<strong>dot = "." ; Brief syntax only
+</strong>; A dot connects an expression constraint with an attribute whose values are included in the result.
 
-\| A disjunction expression constraint combines two or more expression constraints with a disjunction ("or") operator. More than one disjunction may be used without brackets. However any compound expression constraint (using a different binary operator) that appears within a disjunction expression constraint must be enclosed by brackets.\
-\*\*BS/LS:\*\***exclusionExpressionConstraint** = subExpressionConstraint ws exclusion ws subExpressionConstraint
+memberOf = "^" [ ws "[" ws (refsetFieldNameSet / wildCard) ws "]" ]**LS:**memberOf = ( "^" / ("m"/"M") ("e"/"E") ("m"/"M") ("b"/"B") ("e"/"E") ("r"/"R") ("o"/"O") ("f"/"F") ) [ ws "[" ws (refsetFieldNameSet / wildCard) ws "]" ]
+; By default, the 'memberOf' function returns the set of referenced components in the set of reference sets which follows. In the brief syntax, the memberOf function is represented using the "^" symbol. In the long syntax, the text "memberOf " (case insensitive and followed by at least one white space) is also allowed. If a set of reference set fields is listed in square brackets after the memberOf function, then the values of these fields are returned.
 
-\| An exclusion expression constraint combines two expression constrains with an exclusion ("minus") operator. A single exclusion operator may be used without brackets. However when the operands of the exclusion expression constraint are compound, these compound expression constraints must be enclosed by brackets.\
-\*\*BS/LS:\*_**dottedExpressionConstraint** = subExpressionConstraint 1_(ws dottedExpressionAttribute)
+refsetFieldNameSet = refsetFieldName *( ws "," ws refsetFieldName )
+; A refsetFieldNameSet is a set of one or more reference set fields, separated by a comma and optional whitespace.
 
-\| A dotted expression constraint contains a sub expression constraint, followed by one or more dotted attributes. When a single dotted attribute is used, the result is the set of attribute values (for the given attribute name) of each concept that results from evaluating the subExpressionConstraint. When more than one dotted attribute is used, each dottedExpressionAttribute is sequentially evaluated (from left to right) against the given result set.\
-\*\*BS/LS:\*\***dottedExpressionAttribute** = dot ws eclAttributeName
+refsetFieldName = 1*alpha
+; A refsetFieldName is the set of alphabetic characters used to name a reference set field.
 
-\| A dotted expression attribute consists of a 'dot', followed by an attribute name. Please note that the attribute name may be represented by any sub expression constraint.\
-\*\*BS/LS:\*\***subExpressionConstraint** = \[constraintOperator ws] ( ( \[memberOf ws] (eclFocusConcept / "(" ws expressionConstraint ws ")") \*(ws memberFilterConstraint)) / (eclFocusConcept / "(" ws expressionConstraint ws ")") ) \*(ws (descriptionFilterConstraint / conceptFilterConstraint)) \[ws historySupplement]
+eclConceptReference = conceptId [ws "|" ws term ws "|"]
+; A conceptReference is represented by a ConceptId, optionally followed by a term enclosed by a pair of "|" characters. Whitespace before or after the ConceptId is ignored as is any whitespace between the initial "|" characters and the first non-whitespace character in the term or between the last non-whitespace character and before second "|" character.
 
-\| A sub expression constraint optionally begins with a constraint operator and/or a memberOf function. It then includes either a single focus concept or an expression constraint (enclosed in brackets). If the memberOf function is applied, a member filter constraint may be used. A sub expression constraint may then optionally include one or more concept or description filter constraints, followed optionally by a history supplement.Notes: A memberOf function should be used only when the eclFocusConcept or expressionConstraint refers to a reference set concept, a set of reference set concepts, or a wild card. When both a constraintOperator and a memberOf function are used, they are applied from the inside to out (i.e. from right to left) - see [5.4 Order of Operation](../5%20syntax-specification/5.4-Order-of-Operation_28739415.html). Therefore, if a constraintOperator is followed by a memberOf function, then the memberOf function is processed prior to the constraintOperator.\
-\*\*BS/LS:\*\***eclFocusConcept** = eclConceptReference / wildCard
+eclConceptReferenceSet = "(" ws eclConceptReference 1*(mws eclConceptReference) ws ")"
+; A concept reference set includes two or more concept references separated by mandatory white space and enclosed in brackets.
 
-\| A focus concept is a concept reference or a wild card.\
-\*\*BS/LS:\*\*\*\***dot** \*\*= "."
+conceptId = sctId
+; The ConceptId must be a valid SNOMED CT identifier for a concept. The initial digit may not be zero. The smallest number of digits is six, and the maximum is 18.
 
-\| A dot connects an expression constraint with an attribute whose values are included in the result.\
-\*\*BS:\*\***memberOf** = "^" \[ ws "\[" ws (refsetFieldNameSet / wildCard) ws "]" ]\*\*LS:\*\***memberOf** = ( "^" / ("m"/"M") ("e"/"E") ("m"/"M") ("b"/"B") ("e"/"E") ("r"/"R") ("o"/"O") ("f"/"F") ) \[ ws "\[" ws (refsetFieldNameSet / wildCard) ws "]" ]
+term = 1nonwsnonpipe ( 1SP 1nonwsnonpipe )
+; The term must be the term from a SNOMED CT description that is associated with the concept identified by the preceding concept identifier. For example, the term could be the preferred description, or the preferred description associated with a particular translation. The term may include valid UTF-8 characters except for the pipe
 
-\| By default, the 'memberOf' function returns the set of referenced components in the set of reference sets which follows. In the brief syntax, the memberOf function is represented using the "^" symbol. In the long syntax, the text "memberOf " (case insensitive and followed by at least one white space) is also allowed. If a set of reference set fields is listed in square brackets after the memberOf function, then the values of these fields are returned.\
-**BS/LS**\*\*: refsetFieldNameSet\*\* = refsetFieldName \*( ws "," ws refsetFieldName )
+wildCard = "" ; Brief syntax 
+wildCard = "" / ( ("a"/"A") ("n"/"N") ("y"/"Y")) ; Long syntax
+; A wild card represents any concept in the given substrate. In the brief syntax, a wildcard is represented using the "*" symbol. In the long syntax, the text "ANY" (case insensitive) is also allowed.
 
-\| A refsetFieldNameSet is a set of one or more reference set fields, separated by a comma and optional whitespace.\
-**BS/LS**\*\*: refsetFieldName\*\* = 1\*alpha
+constraintOperator = childOf / childOrSelfOf / descendantOrSelfOf / descendantOf / parentOf / parentOrSelfOf / ancestorOrSelfOf / ancestorOf
+; A constraint operator is either 'childOf', 'childOrSelfOf', 'descendantOrSelfOf', 'descendantOf', 'parentOf', 'parentOrSelfOf', 'ancestorOrSelfOf', or 'ancestorOf'.
 
-\| A refsetFieldName is the set of alphabetic characters used to name a reference set field.\
-**BS/LS**\*\*:**eclConceptReferen**ce\*\* = conceptId \[ws "|" ws term ws "|"]
+descendantOf = "&#x3C;" ; Brief syntax
+descendantOf = "&#x3C;" / ( ("d"/"D") ("e"/"E") ("s"/"S") ("c"/"C") ("e"/"E") ("n"/"N") ("d"/"D")("a"/"A") ("n"/"N") ("t"/"T") ("o"/"O")("f"/"F") mws ) ; Long syntax
+; The descendantOf operator returns the set of all subtypes of the given concept (or set of concepts). In the brief syntax, the descendantOf operator is represented using the symbol "&#x3C;". In the long syntax, the text "descendantOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| A conceptReference is represented by a ConceptId, optionally followed by a [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) enclosed by a pair of "|" characters. Whitespace before or after the ConceptId is ignored as is any whitespace between the initial "|" characters and the first non-whitespace character in the [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) or between the last non-whitespace character and before second "|" character.
+**BS:**descendantOrSelfOf = "&#x3C;&#x3C;" ; Brief syntax
+**LS:**descendantOrSelfOf = "&#x3C;&#x3C;" / ( ("d"/"D") ("e"/"E") ("s"/"S") ("c"/"C") ("e"/"E") ("n"/"N") ("d"/"D") ("a"/"A") ("n"/"N") ("t"/"T") ("o"/"O")("r"/"R") ("s"/"S")("e"/"E") ("l"/"L") ("f"/"F") ("o"/"O")("f"/"F") mws ) ; Long syntax
+; The descendantOrSelfOf operator returns the set of all subtypes of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the descendantOrSelfOf operator is represented using the symbols "&#x3C;&#x3C;". In the long syntax, the text "descendantOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.
 
-BS/LS: **eclConceptReferenceSet** = "(" ws eclConceptReference 1\*(mws eclConceptReference) ws ")"
+childOf = "&#x3C;!" ; Brief syntax
+childOf = "&#x3C;!" / (("c"/"C") ("h"/"H") ("i"/"I") ("l"/"L") ("d"/"D") ("o"/"O") ("f"/"F") mws ) ; Long syntax
+; The childOf operator returns the set of all immediate children of the given concept (or set of concepts). In the brief syntax, the childOf operator is represented using the symbols "&#x3C;!". In the long syntax, the text "childOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| A concept reference set includes two or more concept references separated by mandatory white space and enclosed in brackets.\
-\*\*BS/LS:\*\***conceptId** = sctId
+childOrSelfOf = "&#x3C;&#x3C;!" ; Brief syntax
+childOrSelfOf = "&#x3C;&#x3C;!" / (("c"/"C") ("h"/"H") ("i"/"I") ("l"/"L") ("d"/"D") ("o"/"O")("r"/"R") ("s"/"S")("e"/"E") ("l"/"L") ("f"/"F") ("o"/"O") ("f"/"F") mws ) ; Long syntax
+; The childOrSelfOf operator returns the set of all immediate children of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the childOrSelfOf operator is represented using the symbols "&#x3C;&#x3C;!". In the long syntax, the text "childOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| The ConceptId must be a valid [SNOMED CT identifier](https://confluence.ihtsdotools.org/display/DOCGLOSS/SNOMED+CT+identifier) for a [concept](https://confluence.ihtsdotools.org/display/DOCGLOSS/concept). The initial digit may not be zero. The smallest number of digits is six, and the maximum is 18.\
-\*\*BS/LS:\*\***term** = &#x31;_&#x6E;onwsnonpipe ( 1SP &#x31;_&#x6E;onwsnonpipe )
+ancestorOf = ">" ; Brief syntax
+ancestorOf = ">" / ( ("a"/"A") ("n"/"N") ("c"/"C") ("e"/"E") ("s"/"S") ("t"/"T") ("o"/"O") ("r"/"R") ("o"/"O")("f"/"F") mws ) ; Long syntax
+; The ancestorOf operator returns the set of all supertypes of the given concept (or set of concepts). In the brief syntax, the ancestorOf operator is represented using the symbol ">". In the long syntax, the text "ancestorOf " (case insensitive and followed by at least one white space) is also allowed.
 
-\| The [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) must be the [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) from a [SNOMED CT description](https://confluence.ihtsdotools.org/display/DOCGLOSS/SNOMED+CT+description) that is associated with the [concept](https://confluence.ihtsdotools.org/display/DOCGLOSS/concept) identified by the preceding [concept identifier](https://confluence.ihtsdotools.org/display/DOCGLOSS/concept+identifier). For example, the [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) could be the preferred [description](https://confluence.ihtsdotools.org/display/DOCGLOSS/description), or the preferred [description](https://confluence.ihtsdotools.org/display/DOCGLOSS/description) associated with a particular translation. The [term](https://confluence.ihtsdotools.org/display/DOCRELFMT/term+\(field\)) may include valid [UTF-8](https://confluence.ihtsdotools.org/display/DOCRELFMT/UTF-8) characters except for the pipe "\
-\*\*BS:\*\***wildCard** = "_"\*\*LS:\*\***wildCard** = "_" / ( ("a"/"A") ("n"/"N") ("y"/"Y"))
+ancestorOrSelfOf = ">>" ; Brief syntax
+ancestorOrSelfOf = ">>" / ( ("a"/"A") ("n"/"N") ("c"/"C") ("e"/"E") ("s"/"S") ("t"/"T") ("o"/"O") ("r"/"R") ("o"/"O") ("r"/"R") ("s"/"S") ("e"/"E") ("l"/"L" ("f"/"F") ("o"/"O")("f"/"F") mws ) ; Long syntax
+; The ancestorOrSelfOf operator returns the set of all supertypes of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the ancestorOrSelfOf operator is represented using the symbols ">>". In the long syntax, the text "ancestorOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| A wild card represents any concept in the given substrate. In the brief syntax, a wildcard is represented using the "\*" symbol. In the long syntax, the text "ANY" (case insensitive) is also allowed.\
-\*\*BS/LS:\*\***constraintOperator** = childOf / childOrSelfOf / descendantOrSelfOf / descendantOf / parentOf / parentOrSelfOf / ancestorOrSelfOf / ancestorOf
+<strong>parentOf = ">!" ; Brief syntax
+</strong><strong>parentOf = ">!" / (("p"/"P") ("a"/"A") ("r"/"R") ("e"/"E") ("n"/"N") ("t"/"T") ("o"/"O") ("f"/"F") mws ) ; Long syntax
+</strong>; The parentOf operator returns the set of all immediate parents of the given concept (or set of concepts). In the brief syntax, the parentOf operator is represented using the symbols ">!". In the long syntax, the text "parentOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| A constraint operator is either 'childOf', 'childOrSelfOf', 'descendantOrSelfOf', 'descendantOf', 'parentOf', 'parentOrSelfOf', 'ancestorOrSelfOf', or 'ancestorOf'.\
-\*\*BS:\*\***descendantOf** = "<"\*\*LS:\*\***descendantOf** = "<" / ( ("d"/"D") ("e"/"E") ("s"/"S") ("c"/"C") ("e"/"E") ("n"/"N") ("d"/"D")("a"/"A") ("n"/"N") ("t"/"T") ("o"/"O")("f"/"F") mws )
+parentOrSelfOf = ">>!" ; Brief syntax
+parentOrSelfOf = ">>!" / (("p"/"P") ("a"/"A") ("r"/"R") ("e"/"E") ("n"/"N") ("t"/"T") ("o"/"O") ("r"/"R") ("s"/"S") ("e"/"E") ("l"/"L" ("f"/"F") ("o"/"O") ("f"/"F") mws ) ; Long syntax
+; The parentOrSelfOf operator returns the set of all immediate parents of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the parentOrSelfOf operator is represented using the symbols ">>!". In the long syntax, the text "parentOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.
 
-\| The descendantOf operator returns the set of all subtypes of the given concept (or set of concepts). In the brief syntax, the descendantOf operator is represented using the symbol "<". In the long syntax, the text "descendantOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***descendantOrSelfOf** = "<<"\*\*LS:\*\***descendantOrSelfOf** = "<<" / ( ("d"/"D") ("e"/"E") ("s"/"S") ("c"/"C") ("e"/"E") ("n"/"N") ("d"/"D") ("a"/"A") ("n"/"N") ("t"/"T") ("o"/"O")("r"/"R") ("s"/"S")("e"/"E") ("l"/"L") ("f"/"F") ("o"/"O")("f"/"F") mws )
+conjunction = (("a"/"A") ("n"/"N") ("d"/"D") mws) / ","
+; A conjunction is represented either by the word "and" (case insensitive and followed by at least one white space), or by a comma.
 
-\| The descendantOrSelfOf operator returns the set of all subtypes of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the descendantOrSelfOf operator is represented using the symbols "<<". In the long syntax, the text "descendantOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***childOf** = "\<!"\*\*LS:\*\***childOf** = "\<!" / (("c"/"C") ("h"/"H") ("i"/"I") ("l"/"L") ("d"/"D") ("o"/"O") ("f"/"F") mws )
+disjunction = ("o"/"O") ("r"/"R") mws
+; A disjunction is represented by the word "or" (case insensitive and followed by at least one white space).
 
-\| The childOf operator returns the set of all immediate children of the given concept (or set of concepts). In the brief syntax, the childOf operator is represented using the symbols "\<!". In the long syntax, the text "childOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***childOrSelfOf** = "<\<!"\*\*LS:\*\***childOrSelfOf** = "<\<!" / (("c"/"C") ("h"/"H") ("i"/"I") ("l"/"L") ("d"/"D") ("o"/"O")("r"/"R") ("s"/"S")("e"/"E") ("l"/"L") ("f"/"F") ("o"/"O") ("f"/"F") mws )
+exclusion = ("m"/"M") ("i"/"I") ("n"/"N") ("u"/"U") ("s"/"S") mws
+; The exclusion operator is represented by the word "minus" (case insensitive and followed by at least one white space).
 
-\| The childOrSelfOf operator returns the set of all immediate children of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the childOrSelfOf operator is represented using the symbols "<\<!". In the long syntax, the text "childOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***ancestorOf** = ">"\*\*LS:\*\***ancestorOf** = ">" / ( ("a"/"A") ("n"/"N") ("c"/"C") ("e"/"E") ("s"/"S") ("t"/"T") ("o"/"O") ("r"/"R") ("o"/"O")("f"/"F") mws )
+eclRefinement = subRefinement ws [conjunctionRefinementSet / disjunctionRefinementSet]
+; A refinement contains all the grouped and ungrouped attributes that refine the set of clinical meanings satisfied by the expression constraint. Refinements may represent the conjunction or disjunction of two smaller refinements, and may optionally be placed in brackets. Where both conjunction and disjunction are used, brackets are mandatory to disambiguate the intended meaning.
 
-\| The ancestorOf operator returns the set of all supertypes of the given concept (or set of concepts). In the brief syntax, the ancestorOf operator is represented using the symbol ">". In the long syntax, the text "ancestorOf " (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***ancestorOrSelfOf** = ">>"\*\*LS:\*\***ancestorOrSelfOf** = ">>" / ( ("a"/"A") ("n"/"N") ("c"/"C") ("e"/"E") ("s"/"S") ("t"/"T") ("o"/"O") ("r"/"R") ("o"/"O") ("r"/"R") ("s"/"S") ("e"/"E") ("l"/"L" ("f"/"F") ("o"/"O")("f"/"F") mws )
+conjunctionRefinementSet = 1(ws conjunction ws subRefinement)
+; A conjunction refinement set consists of one or more conjunction operators, each followed by a subRefinement.
 
-\| The ancestorOrSelfOf operator returns the set of all supertypes of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the ancestorOrSelfOf operator is represented using the symbols ">>". In the long syntax, the text "ancestorOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***parentOf** = ">!"\*\*LS:\*\***parentOf** = ">!" / (("p"/"P") ("a"/"A") ("r"/"R") ("e"/"E") ("n"/"N") ("t"/"T") ("o"/"O") ("f"/"F") mws )
+disjunctionRefinementSet = 1(ws disjunction ws subRefinement)
+; A disjunction refinement set consists of one or more disjunction operators, each followed by a subRefinement.
 
-\| The parentOf operator returns the set of all immediate parents of the given concept (or set of concepts). In the brief syntax, the parentOf operator is represented using the symbols ">!". In the long syntax, the text "parentOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS:\*\***parentOrSelfOf** = ">>!"\*\*LS:\*\***parentOrSelfOf** = ">>!" / (("p"/"P") ("a"/"A") ("r"/"R") ("e"/"E") ("n"/"N") ("t"/"T") ("o"/"O") ("r"/"R") ("s"/"S") ("e"/"E") ("l"/"L" ("f"/"F") ("o"/"O") ("f"/"F") mws )
+subRefinement = eclAttributeSet / eclAttributeGroup / "(" ws eclRefinement ws ")"
+; A subRefinement is either an attribute set, an attribute group or a bracketed refinement.
 
-\| The parentOrSelfOf operator returns the set of all immediate parents of the given concept (or set of concepts), plus the concept (or set of concepts) itself. In the brief syntax, the parentOrSelfOf operator is represented using the symbols ">>!". In the long syntax, the text "parentOrSelfOf" (case insensitive and followed by at least one white space) is also allowed.\
-\*\*BS/LS:\*\***conjunction** = (("a"/"A") ("n"/"N") ("d"/"D") mws) / ","
+eclAttributeSet = subAttributeSet ws [conjunctionAttributeSet / disjunctionAttributeSet]
+; An attribute set contains one or more attribute name-value pairs separated by a conjunction or disjunction operator. An attribute set may optionally be placed in brackets.
 
-\| A conjunction is represented either by the word "and" (case insensitive and followed by at least one white space), or by a comma.\
-\*\*BS/LS:\*\***disjunction** = ("o"/"O") ("r"/"R") mws
+conjunctionAttributeSet = 1(ws conjunction ws subAttributeSet)
+; A conjunction attribute set consists of one or more conjunction operators, each followed by a subAttributeSet.
 
-\| A disjunction is represented by the word "or" (case insensitive and followed by at least one white space).\
-\*\*BS/LS:\*\***exclusion** = ("m"/"M") ("i"/"I") ("n"/"N") ("u"/"U") ("s"/"S") mws
+disjunctionAttributeSet = 1(ws disjunction ws subAttributeSet)
+; A disjunction attribute set consists of one or more disjunction operators, each followed by a subAttributeSet.
 
-\| The exclusion operator is represented by the word "minus" (case insensitive and followed by at least one white space).\
-\*\*BS/LS:\*\***eclRefinement** = subRefinement ws \[conjunctionRefinementSet / disjunctionRefinementSet]
+subAttributeSet = eclAttribute / "(" ws eclAttributeSet ws ")"
+; A subAttributeSet is either an attribute or a bracketed attribute set.
 
-\| A refinement contains all the grouped and ungrouped attributes that refine the set of clinical meanings satisfied by the expression constraint. Refinements may represent the conjunction or disjunction of two smaller refinements, and may optionally be placed in brackets. Where both conjunction and disjunction are used, brackets are mandatory to disambiguate the intended meaning.\
-\*\*BS/LS:\*_**conjunctionRefinementSet** = 1_(ws conjunction ws subRefinement)
+eclAttributeGroup = [ "[" cardinality "]" ws] "{" ws eclAttributeSet ws "}"
+; An attribute group contains a collection of attributes that operate together as part of the refinement of the containing expression constraint. An attribute group may optionally be preceded by a cardinality. An attribute group cardinality indicates the minimum and maximum number of attribute groups that must satisfy the given attributeSet constraint for the expression constraint to be satisfied.
 
-\| A conjunction refinement set consists of one or more conjunction operators, each followed by a subRefinement.\
-\*\*BS/LS:\*_**disjunctionRefinementSet** = 1_(ws disjunction ws subRefinement)
+eclAttribute = [ "[" cardinality "]" ws] [reverseFlag ws] eclAttributeName ws (expressionComparisonOperator ws subExpressionConstraint / numericComparisonOperator ws "#" numericValue / stringComparisonOperator ws (typedSearchTerm / typedSearchTermSet) / booleanComparisonOperator ws booleanValue)
+; An attribute is a name-value pair expressing a single refinement of the containing expression constraint. Either the attribute value must satisfy (or not) the given expression constraint, the attribute value is compared with a given numeric value (integer or decimal) using a numeric comparison operator, the attribute value must match (or not match) the given typedSearchTerm or typedSearchTermSet, or the attribute value must be equal to (or not equal to) the given boolean value. The attribute may optionally be preceded by a cardinality constraint and/or a reverse flag.
 
-\| A disjunction refinement set consists of one or more disjunction operators, each followed by a subRefinement.\
-\*\*BS/LS:\*\***subRefinement** = eclAttributeSet / eclAttributeGroup / "(" ws eclRefinement ws ")"
+cardinality = minValue to maxValue
+; The cardinality represents a constraint on the minimum and maximum number of times that the given attribute or attribute group may appear in a matching expression. The cardinality is enclosed in square brackets with the minimum cardinality appearing first, followed by a separator (two dots in the brief syntax), and then the maximum cardinality.
 
-\| A subRefinement is either an attribute set, an attribute group or a bracketed refinement.\
-\*\*BS/LS:\*\***eclAttributeSet** = subAttributeSet ws \[conjunctionAttributeSet / disjunctionAttributeSet]
+minValue = nonNegativeIntegerValue
+; A value that represents the minimum number of times that an attribute or attribute group may appear. The minimum cardinality must always be less than or equal to the maximum cardinality.
 
-\| An attribute set contains one or more [attribute name](https://confluence.ihtsdotools.org/display/DOCGLOSS/attribute+name)-value pairs separated by a conjunction or disjunction operator. An attribute set may optionally be placed in brackets.\
-\*\*BS/LS:\*_**conjunctionAttributeSet** = 1_(ws conjunction ws subAttributeSet)
+to = ".." ; Brief syntax
+to = ".." / (mws ("t"/"T") ("o"/"O") mws) ; Long syntax
+; In the brief syntax, the minimum and maximum cardinality are separated by two dots (i.e. ".."). In the long syntax, the text "to" (case insensitive with at least one white space before and after) is also allowed between the two cardinalities.
 
-\| A conjunction attribute set consists of one or more conjunction operators, each followed by a subAttributeSet.\
-\*\*BS/LS:\*_**disjunctionAttributeSet** = 1_(ws disjunction ws subAttributeSet)
+maxValue = nonNegativeIntegerValue / many
+; A value that represents the maximum number of times that an attribute or attribute group may appear. A maximum cardinality of 'many' indicates that there is no limit on the number of times the attribute may appear.
 
-\| A disjunction attribute set consists of one or more disjunction operators, each followed by a subAttributeSet.\
-\*\*BS/LS:\*\***subAttributeSet** = eclAttribute / "(" ws eclAttributeSet ws ")"
+many = "" ; Brief syntax
+many = "" / ( ("m"/"M") ("a"/"A") ("n"/"N") ("y"/"Y")) ; Long syntax
+; In the brief syntax, a cardinality of 'many' is represented using the symbol "*". In the long syntax, the text "many" (case insensitive, with no trailing space) is also allowed.
 
-\| A subAttributeSet is either an attribute or a bracketed attribute set.\
-\*\*BS/LS:\*\***eclAttributeGroup** = \[ "\[" cardinality "]" ws] "{" ws eclAttributeSet ws "}"
+reverseFlag = "R" ; Brief syntax
+reverseFlag = (("r"/"R") ("e"/"E") ("v"/"V") ("e"/"E") ("r"/"R") ("s"/"S") ("e"/"E") ("o"/"O") ("f"/"F")) / "R" ; Long syntax
+; When a reverse flag is used on an attribute, the matching relationships are traversed in the reverse of the normal direction. This means that the target concept of each relationship must match the focus concept to which the attribute is applied, while the source concept of the relationship must match the attribute value. In the brief syntax, the reverse flag is represented using the character "R" (in uppercase). In the long syntax, the text "reverseOf " (case insensitive) is also allowed.
 
-\| An [attribute group](https://confluence.ihtsdotools.org/display/DOCGLOSS/attribute+group) contains a collection of attributes that operate together as part of the [refinement](https://confluence.ihtsdotools.org/display/DOCGLOSS/refinement) of the containing [expression](https://confluence.ihtsdotools.org/display/DOCGLOSS/expression) constraint. An attribute group may optionally be preceded by a cardinality. An attribute group cardinality indicates the minimum and maximum number of attribute groups that must satisfy the given attributeSet constraint for the expression constraint to be satisfied.\
-\*\*BS/LS:\*\***eclAttribute** = \[ "\[" cardinality "]" ws] \[reverseFlag ws] eclAttributeName ws (expressionComparisonOperator ws subExpressionConstraint / numericComparisonOperator ws "#" numericValue / stringComparisonOperator ws (typedSearchTerm / typedSearchTermSet) / booleanComparisonOperator ws booleanValue)
+eclAttributeName = subExpressionConstraint
+; The attribute name is the name of an attribute (or relationship type) to which a value is applied to refine the meaning of a containing expression constraint. The attribute name is represented using a subExpressionConstraint, as defined above.
 
-\| An [attribute is a name](https://confluence.ihtsdotools.org/display/DOCGLOSS/attribute+name)-value pair expressing a single [refinement](https://confluence.ihtsdotools.org/display/DOCGLOSS/refinement) of the containing [expression](https://confluence.ihtsdotools.org/display/DOCGLOSS/expression) constraint. Either the attribute value must satisfy (or not) the given expression constraint, the attribute value is compared with a given numeric value (integer or decimal) using a numeric comparison operator, the attribute value must match (or not match) the given typedSearchTerm or typedSearchTermSet, or the attribute value must be equal to (or not equal to) the given boolean value. The attribute may optionally be preceded by a cardinality constraint and/or a reverse flag.\
-\*\*BS/LS:\*\***cardinality** = minValue to maxValue
+expressionComparisonOperator = "=" / "!=" ; Brief syntax
+expressionComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>" ; Long syntax
+; Attributes whose value is a concept may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| The cardinality represents a constraint on the minimum and maximum number of times that the given attribute or attribute group may appear in a matching expression. The cardinality is enclosed in square brackets with the minimum cardinality appearing first, followed by a separator (two dots in the brief syntax), and then the maximum cardinality.\
-\*\*BS/LS:\*\***minValue** = nonNegativeIntegerValue
+numericComparisonOperator = "=" / "!=" / "&#x3C;=" / "&#x3C;" / ">=" / ; Brief syntax
+numericComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>" / "&#x3C;=" / "&#x3C;" / ">=" / ">" ; Long syntax
+; Attributes whose value is numeric (i.e. integer or decimal) may be compared to a specific concrete value using a variety of comparison operators, including equals ("="), less than ("&#x3C;"), less than or equals ("&#x3C;="), greater than (">"), greater than or equals (">=") and not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| A value that represents the minimum number of times that an attribute or attribute group may appear. The minimum cardinality must always be less than or equal to the maximum cardinality.\
-\*\*BS:\*\***to** = ".."\*\*LS:\*\***to** = ".." / (mws ("t"/"T") ("o"/"O") mws)
+timeComparisonOperator = "=" / "!=" / "&#x3C;=" / "&#x3C;" / ">=" / ">" ; Brief syntax
+timeComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>" / "&#x3C;=" / "&#x3C;" / ">=" / ">" ; Long syntax
+; Date and time values may be compared using a variety of comparison operators, , including equals ("="), less than ("&#x3C;"), less than or equals ("&#x3C;="), greater than (">"), greater than or equals (">=") and not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| In the brief syntax, the minimum and maximum cardinality are separated by two dots (i.e. ".."). In the long syntax, the text "to" (case insensitive with at least one white space before and after) is also allowed between the two cardinalities.\
-\*\*BS/LS:\*\***maxValue** = nonNegativeIntegerValue / many
+stringComparisonOperator = "=" / "!="
+stringComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>"
+; Attributes whose value is a string may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| A value that represents the maximum number of times that an attribute or attribute group may appear. A maximum cardinality of 'many' indicates that there is no limit on the number of times the attribute may appear.\
-\*\*BS:\*\***many** = "_"\*\*LS:\*\***many** = "_" / ( ("m"/"M") ("a"/"A") ("n"/"N") ("y"/"Y"))
+booleanComparisonOperator = "=" / "!="
+booleanComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>"
+; Attributes whose value is a boolean may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| In the brief syntax, a cardinality of 'many' is represented using the symbol "\*". In the long syntax, the text "many" (case insensitive, with no trailing space) is also allowed.\
-\*\*BS:\*\***reverseFlag** = "R"\*\*LS:\*\***reverseFlag** = (("r"/"R") ("e"/"E") ("v"/"V") ("e"/"E") ("r"/"R") ("s"/"S") ("e"/"E") ("o"/"O") ("f"/"F")) / "R"
+idComparisonOperator = "=" / "!=" ; Brief syntax
+idComparisonOperator = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "&#x3C;>" ; Long syntax
+; Filter criteria whose value is a SCTID may be compared to a SNOMED CT identifier using either equals ("=") or not equals ("!="). In the long syntax "&#x3C;>" and "not =" (case insensitive) are also valid ways to represent not equals.
 
-\| When a reverse flag is used on an attribute, the matching relationships are traversed in the reverse of the normal direction. This means that the target concept of each relationship must match the focus concept to which the attribute is applied, while the source concept of the relationship must match the attribute value. In the brief syntax, the reverse flag is represented using the character "R" (in uppercase). In the long syntax, the text "reverseOf " (case insensitive) is also allowed.\
-\*\*BS/LS:\*\***eclAttributeName** = subExpressionConstraint
+descriptionFilterConstraint = "{{" ws ["d", / "D"] ws descriptionFilter *(ws "," ws descriptionFilter) ws "}}"
+; A descriptionFilterConstraint is a constraint used to filter the concepts in the result set, according to whether or not the given conditions match at least one of the concept's descriptions. A description filter constraint is always enclosed in double curly braces. Within these braces, it should (preferably) start with the letter 'D' followed by one or more description filters.
 
-\| The attribute name is the name of an attribute (or relationship type) to which a value is applied to refine the meaning of a containing expression constraint. The attribute name is represented using a subExpressionConstraint, as defined above.\
-\*\*BS:\*\***expressionComparisonOperator** = "=" / "!="\*\*LS:\*\***expressionComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>"
+descriptionFilter = termFilter / languageFilter / typeFilter / dialectFilter / moduleFilter / effectiveTimeFilter / activeFilter / descriptionIdFilter
+; A description filter is either a term filter, a language filter, a type filter, a dialect filter, a module filter, an effective time filter, an active filter or a description id filter.
 
-\| Attributes whose value is a concept may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS:\*\***numericComparisonOperator** = "=" / "!=" / "<=" / "<" / ">=" / ">"\*\*LS:\*\***numericComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>" / "<=" / "<" / ">=" / ">"
+descriptionIdFilter = descriptionIdKeyword ws idComparisonOperator ws (descriptionId / descriptionIdSet)
+; A descriptionIdFilter starts with the 'id' keyword, followed by an id comparison operator and either a single description id or a set of description ids.
 
-\| Attributes whose value is numeric (i.e. integer or decimal) may be compared to a specific concrete value using a variety of comparison operators, including equals ("="), less than ("<"), less than or equals ("<="), greater than (">"), greater than or equals (">=") and not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS:\*\***timeComparisonOperator** = "=" / "!=" / "<=" / "<" / ">=" / ">"\*\*LS:\*\***timeComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>" / "<=" / "<" / ">=" / ">"
+descriptionIdKeyword = ("i"/"I") ("d"/"D")
+; The description id keyword uses the text "id" (case insensitive)
 
-\| Date and time values may be compared using a variety of comparison operators, , including equals ("="), less than ("<"), less than or equals ("<="), greater than (">"), greater than or equals (">=") and not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS:\*\***stringComparisonOperator** = "=" / "!="\*\*LS:\*\***stringComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>"
+descriptionId = sctId
+; The descriptionId must be a valid SNOMED CT identifier for a description. The initial digit may not be zero. The smallest number of digits is six, and the maximum is 18.
 
-\| Attributes whose value is a string may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS:\*\***booleanComparisonOperator** = "=" / "!="\*\*LS:\*\***booleanComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>"
+descriptionIdSet = "(" ws descriptionId *(mws descriptionId) ws ")"
+; A description id set consists of one or more description ids separated by mandatory white space and enclosed in brackets.
 
-\| Attributes whose value is a boolean may be compared to an expression constraint using either equals ("=") or not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS:\*\***idComparisonOperator** = "=" / "!="\*\*LS:\*\***idComparisonOperator** = "=" / "!=" / ("n"/"N") ("o"/"O") ("t"/"T") ws "=" / "<>"
+termFilter = termKeyword ws stringComparisonOperator ws (typedSearchTerm / typedSearchTermSet)
+; A termFilter starts with the 'term' keyword, followed by a string comparison operator and either a typed search term or a typed search term set (with optional white space between). For example: term = "respiratory".
 
-\| Filter criteria whose value is a SCTID may be compared to a SNOMED CT identifier using either equals ("=") or not equals ("!="). In the long syntax "<>" and "not =" (case insensitive) are also valid ways to represent not equals.\
-\*\*BS/LS: **descriptionFilterConstraint** \*\*= "\{{" ws \["d", / "D"] ws descriptionFilter \*(ws "," ws descriptionFilter) ws "\}}"
+termKeyword = ("t"/"T") ("e"/"E") ("r"/"R") ("m"/"M")
+; The term keyword uses the text "term" (case insensitive).
 
-\| A descriptionFilterConstraint is a constraint used to filter the concepts in the result set, according to whether or not the given conditions match at least one of the concept's descriptions. A description filter constraint is always enclosed in double curly braces. Within these braces, it should (preferably) start with the letter 'D' followed by one or more description filters.\
-**BS/LS: descriptionFilter** = termFilter / languageFilter / typeFilter / dialectFilter / moduleFilter / effectiveTimeFilter / activeFilter / descriptionIdFilter
+typedSearchTerm = ( [ matchKeyword ws ":" ws ] matchSearchTermSet ) / ( wild ws ":" ws wildSearchTermSet )
+; A typed search term is either a match search term set or a wild search term set. A match search term set is optionally preceded by the text "match" and a colon. A wild search term set must be preceded by the text "wild" and a colon.
+</code></pre>
 
-\| A description filter is either a term filter, a language filter, a type filter, a dialect filter, a module filter, an effective time filter, an active filter or a description id filter.\
-\*\*BS/LS: descriptionIdFilter \*\*= descriptionIdKeyword ws idComparisonOperator ws (descriptionId / descriptionIdSet)
-
-\| A descriptionIdFilter starts with the 'id' keyword, followed by an id comparison operator and either a single description id or a set of description ids.\
-\*\*BS/LS: descriptionIdKeyword \*\*= ("i"/"I") ("d"/"D")
-
-\| The description id keyword uses the text "id" (case insensitive)\
-\*\*BS/LS: descriptionId \*\*= sctId
-
-\| The descriptionId must be a valid [SNOMED CT identifier](https://confluence.ihtsdotools.org/display/DOCGLOSS/SNOMED+CT+identifier) for a [description](https://confluence.ihtsdotools.org/display/DOCGLOSS/description). The initial digit may not be zero. The smallest number of digits is six, and the maximum is 18.\
-\*\*BS/LS: descriptionIdSet \*\*= "(" ws descriptionId \*(mws descriptionId) ws ")"
-
-\| A description id set consists of one or more description ids separated by mandatory white space and enclosed in brackets.\
-**BS/LS: termFilter** = termKeyword ws stringComparisonOperator ws (typedSearchTerm / typedSearchTermSet)
-
-\| A termFilter starts with the 'term' keyword, followed by a string comparison operator and either a typed search term or a typed search term set (with optional white space between). For example: term = "respiratory".\
-\*\*BS/LS: **termKeyword** \*\*= ("t"/"T") ("e"/"E") ("r"/"R") ("m"/"M")
-
-\| The term keyword uses the text "term" (case insensitive).\
-\*\*BS/LS: **typedSearchTerm** \*\*= ( \[ matchKeyword ws ":" ws ] matchSearchTermSet ) / ( wild ws ":" ws wildSearchTermSet )
-
-\| A typed search term is either a match search term set or a wild search term set. A match search term set is optionally preceded by the text "match" and a colon. A wild search term set must be preceded by the text "wild" and a colon.\
+\
+\
 **BS/LS: typedSearchTermSet** = "(" ws typedSearchTerm \*(mws typedSearchTerm) ws ")"
 
 \| A typed search term set consists of one or more typed search terms separated by mandatory white space and enclosed in brackets.\
@@ -912,53 +926,68 @@ This section explains the correct order of operation for unary operators, binary
 
 Unary operators (e.g. descendantOf, descendantOrSelfOf, ancestorOf, ancestorOrSelfOf, memberOf) are applied from inside to out (i.e. from right to left). For example, when the following expression constraint is processed, the memberOf operator is applied first to the Example problem list concepts reference set, and then the descendants of the referenced components are determined.
 
-< ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)
+```
+< ^ 700043003 |Example problem list concepts reference set|
+
+```
 
 ### Binary Operators
 
 Whenever potential ambiguity in binary operator precedence may occur, round brackets must be used to clearly disambiguate the order in which these operators are applied. For example, the following expression constraint is not valid:
 
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) OR ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
+{% code overflow="wrap" %}
+```
+< 19829001 |Disorder of lung| OR ^ 700043003 |Example problem list concepts reference set|
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
+```
+{% endcode %}
 
 And must be expressed using brackets, as either:
 
-(< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) OR ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003) )\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
+{% code overflow="wrap" %}
+```
+(< 19829001 |Disorder of lung| OR ^ 700043003 |Example problem list concepts reference set| )
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
+```
+{% endcode %}
 
 or:
 
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) OR (^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002) )
-
+{% code overflow="wrap" %}
+```
+< 19829001 |Disorder of lung| OR (^ 700043003 |Example problem list concepts reference set|
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter| )
 When multiple exclusion operators (i.e. 'minus') are applied, brackets are similarly required. For example, the following expression constraint is not valid:
-
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) MINUS ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
-
+< 19829001 |Disorder of lung| MINUS ^ 700043003 |Example problem list concepts reference set|
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
 And must be expressed using brackets, as either:
-
-(< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) MINUS ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003) )\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
+(< 19829001 |Disorder of lung| MINUS ^ 700043003 |Example problem list concepts reference set| )
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
+```
+{% endcode %}
 
 or:
 
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) MINUS (^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-MINUS ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002) )
+{% code overflow="wrap" %}
+```
+< 19829001 |Disorder of lung| MINUS (^ 700043003 |Example problem list concepts reference set|
+MINUS ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter| )
+```
+{% endcode %}
 
 However, when only a single binary operator is used, or when all binary operators are either conjunction (i.e. 'and') or disjunction (i.e. 'or'), brackets are not required. For example, all of the following expression constraints are valid without brackets:
 
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) AND ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)
-
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) OR ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)
-
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) MINUS ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)
-
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) OR ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-OR ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
-
-< [19829001 |Disorder of lung|](http://snomed.info/id/19829001) AND ^ [700043003 |Example problem list concepts reference set|](http://snomed.info/id/700043003)\
-AND ^ [450976002 |Disorders and diseases reference set for GP/FP reason for encounter|](http://snomed.info/id/450976002)
+{% code overflow="wrap" %}
+```
+< 19829001 |Disorder of lung| AND ^ 700043003 |Example problem list concepts reference set|
+< 19829001 |Disorder of lung| OR ^ 700043003 |Example problem list concepts reference set|
+< 19829001 |Disorder of lung| MINUS ^ 700043003 |Example problem list concepts reference set|
+< 19829001 |Disorder of lung| OR ^ 700043003 |Example problem list concepts reference set|
+OR ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
+< 19829001 |Disorder of lung| AND ^ 700043003 |Example problem list concepts reference set|
+AND ^ 450976002 |Disorders and diseases reference set for GP/FP reason for encounter|
+```
+{% endcode %}
 
 Please note that unary operators are always applied before binary operators.
 
@@ -968,15 +997,23 @@ Filter constraints (e.g. concept, description, or member filters) apply only to 
 
 For example, the following expression constraint will apply the term filter to only the descendants or self of [415582006 | Stenosis|](http://snomed.info/id/415582006) . This expression constraint will match descendants of [404684003 | Clinical finding|](http://snomed.info/id/404684003) with a finding site that is a descendant or self of [39057004 | Pulmonary valve structure|](http://snomed.info/id/39057004) , and an associated morphology that is any descendant or self of [415582006 | Stenosis|](http://snomed.info/id/415582006) which has a description matching the term "insufficiency". Therefore, the concept [123801008 | Heart valve stenosis and regurgitation (disorder)|](http://snomed.info/id/123801008) will match this expression constraint because it has the associated morphology [708027006 | Valvular stenosis with valvular insufficiency|](http://snomed.info/id/708027006) .
 
-< [404684003 |Clinical finding|](http://snomed.info/id/404684003) :\
-[363698007 |Finding site|](http://snomed.info/id/363698007) = << [39057004 |Pulmonary valve structure|](http://snomed.info/id/39057004) ,\
-[116676008 |Associated morphology|](http://snomed.info/id/116676008) = << [415582006 |Stenosis|](http://snomed.info/id/415582006) \{{ term = "insufficiency" \}}
+{% code overflow="wrap" %}
+```
+< 404684003 |Clinical finding| :
+363698007 |Finding site| = << 39057004 |Pulmonary valve structure| ,
+116676008 |Associated morphology| = << 415582006 |Stenosis| {{ term = "insufficiency" }}
+```
+{% endcode %}
 
 To apply a filter to a sub-expression constraint, which includes a refinement or binary operators, the subexpression must be enclosed in brackets. For example, the following expression constraint will find all the descendants of clinical finding, with a finding site that is a descendant or self of [39057004 | Pulmonary valve structure|](http://snomed.info/id/39057004) and an associated morphology that is a descendant or self of [415582006 | Stenosis|](http://snomed.info/id/415582006) , and will then match only those clinical finding concepts that have a description that matches the term "insufficiency". Therefore, the concept [123801008 | Heart valve stenosis and regurgitation (disorder)|](http://snomed.info/id/123801008) will **not** match this expression constraints, as it does not have a description that matches the term "insufficiency".
 
-(< [404684003 |Clinical finding|](http://snomed.info/id/404684003) :\
-[363698007 |Finding site|](http://snomed.info/id/363698007) = << [39057004 |Pulmonary valve structure|](http://snomed.info/id/39057004) ,\
-[116676008 |Associated morphology|](http://snomed.info/id/116676008) = << [415582006 |Stenosis|](http://snomed.info/id/415582006) ) \{{ term = "insufficiency" \}}
+{% code overflow="wrap" %}
+```
+(< 404684003 |Clinical finding| :
+363698007 |Finding site| = << 39057004 |Pulmonary valve structure| ,
+116676008 |Associated morphology| = << 415582006 |Stenosis| ) {{ term = "insufficiency" }}
+```
+{% endcode %}
 
 ### History Supplements
 
@@ -984,15 +1021,20 @@ History supplements are applied only to the sub-expression constraint part that 
 
 For example, the following expression constraint will match all concepts that are **both** an active member of the [734139008 | Anatomy structure and part association reference set|](http://snomed.info/id/734139008) **and** also either an active member of the [734138000 | Anatomy structure and entire association reference set|](http://snomed.info/id/734138000) or an inactive concept associated with an active member of the [734138000 | Anatomy structure and entire association reference set|](http://snomed.info/id/734138000) via the [900000000000527005 | SAME AS association reference set|](http://snomed.info/id/900000000000527005) . Because all active members of the [734139008 | Anatomy structure and part association reference set|](http://snomed.info/id/734139008) are active, there will be no inactive concepts in the result set.
 
-^ [734139008 |Anatomy structure and part association reference set|](http://snomed.info/id/734139008)\
-AND ^ [734138000 |Anatomy structure and entire association reference set|](http://snomed.info/id/734138000)\
-\{{ + HISTORY ( [900000000000527005 |SAME AS association reference set|](http://snomed.info/id/900000000000527005) ) \}}
+<pre data-overflow="wrap"><code><strong>^ 734139008 |Anatomy structure and part association reference set|
+</strong>AND ^ 734138000 |Anatomy structure and entire association reference set|
+{{ + HISTORY ( 900000000000527005 |SAME AS association reference set| ) }}
+</code></pre>
 
 To apply the history supplement to the entire sub-expression constraint above, the sub-expression constraint must be enclosed in round brackets. For example, the following expression constraint will match concepts that are **both** members of the [734139008 | Anatomy structure and part association reference set|](http://snomed.info/id/734139008) **and** also members of the [734138000 | Anatomy structure and entire association reference set|](http://snomed.info/id/734138000) ; and it will also match on any inactive concept that is associated via a [900000000000527005 | SAME AS association reference set|](http://snomed.info/id/900000000000527005) to a member of both reference sets.
 
-( ^ [734139008 |Anatomy structure and part association reference set|](http://snomed.info/id/734139008)\
-AND ^ [734138000 |Anatomy structure and entire association reference set|](http://snomed.info/id/734138000) )\
-\{{ + HISTORY ( [900000000000527005 |SAME AS association reference set|](http://snomed.info/id/900000000000527005) ) \}}
+{% code overflow="wrap" %}
+```
+( ^ 734139008 |Anatomy structure and part association reference set|
+AND ^ 734138000 |Anatomy structure and entire association reference set| )
+{{ + HISTORY ( 900000000000527005 |SAME AS association reference set| ) }}
+```
+{% endcode %}
 
 ## Character Collation for Term Filters
 
@@ -1001,19 +1043,14 @@ To promote consistency between implementations of ECL, the following collation p
 * **Search and match** - The default behaviour of a system implementing ECL queries with term filters, is to use locale-specific asymmetric searching at the secondary comparison strength level -as specified in the [Unicode Technical Standard #10 - Unicode Collation Algorithm](http://www.unicode.org/reports/tr10/#Asymmetric_Search_Secondary). This means that the search is, by default, case insensitive, with some language-specific character normalization behaviour.
   * _Asymmetric_ : Asymmetric searches require characters in the query that are unmarked (i.e. the 'base letters') to match characters in the target that are either _marked_ or _unmarked_ (with the same base letter). However, a character in the query that is _marked_ will only match a character in the target that is _marked_ in the same way.
   * _Secondary strength_ : Searches with a strength of secondary will only consider level 1 differences (e.g. "d" vs "e") and level 2 differences (e.g. "e" vs "é" in English). However, level 3 differences (e.g. "e" vs "E") are not considered. This provides the same effect as queries being case insensitive. For example, in English, "e" in the query will match both "e" and "E" in the target; and "E" in the query will similarly match both "e" and "E" in the target.
-* \*\***Language customizations** \*\*- Locale-based customizations of the standard are specified in the [Unicode Common Locale Data Repository (CLDR)](http://cldr.unicode.org/index/cldr-spec/collation-guidelines). The unicode CLDR specifies the characters that are considered to be 'marked' variants of the base letters, identical base letters, and/or contractions in each specified language. The description terms in the substrate should be indexed separately for each language supported.
+* **Language customizations** - Locale-based customizations of the standard are specified in the [Unicode Common Locale Data Repository (CLDR)](http://cldr.unicode.org/index/cldr-spec/collation-guidelines). The unicode CLDR specifies the characters that are considered to be 'marked' variants of the base letters, identical base letters, and/or contractions in each specified language. The description terms in the substrate should be indexed separately for each language supported.
 
 For example, the following search behaviour is expected in the locales specified below.
 
 * In **English** , **Swedish** and **Danish** , the following search behaviour is expected:\
   Note: No customizations are made in these 3 locales for the characters used in these searches. Therefore, the [CLDR root collation order](https://unicode.org/reports/tr35/tr35-collation.html#Root_Collation) is used.
 
-| Search Term | Target Matches                                            | Target does NOT Match       |
-| ----------- | --------------------------------------------------------- | --------------------------- |
-| resume      | resume, Resume, RESUME, résumé, rèsumè, Résumé, RÉSUMÉ, … | -                           |
-| Resume      | resume, Resume, RESUME, résumé, rèsumè, Résumé, RÉSUMÉ, … | -                           |
-| résumé      | résumé, Résumé, RÉSUMÉ, …                                 | resume, Resume, RESUME, ... |
-| Résumé      | résumé, Résumé, RÉSUMÉ, …                                 | resume, Resume, RESUME, ... |
+<table><thead><tr><th width="190.7890625">Search Term</th><th>Target Matches</th><th>Target does NOT Match</th></tr></thead><tbody><tr><td>resume</td><td>resume, Resume, RESUME, résumé, rèsumè, Résumé, RÉSUMÉ, …</td><td>-</td></tr><tr><td>Resume</td><td>resume, Resume, RESUME, résumé, rèsumè, Résumé, RÉSUMÉ, …</td><td>-</td></tr><tr><td>résumé</td><td>résumé, Résumé, RÉSUMÉ, …</td><td>resume, Resume, RESUME, ...</td></tr><tr><td>Résumé</td><td>résumé, Résumé, RÉSUMÉ, …</td><td>resume, Resume, RESUME, ...</td></tr></tbody></table>
 
 * In **English** , the following search behaviour is expected (based on the [CLDR 'en' locale](https://github.com/unicode-org/cldr/blob/master/common/collation/en.xml), which uses the [CLDR root collation order](https://unicode.org/reports/tr35/tr35-collation.html#Root_Collation)):
 

@@ -4,13 +4,13 @@
 
 * [Expression Constraint Language - Specification and Guide](README.md)
 * [Introduction](<1 introduction/README.md>)
-* [Use Cases](introduction/2-use-cases.md)
+* [Use Cases](<2 use-cases/README.md>)
 
 ## Design
 
-* [Requirements](design/3-requirements.md)
-* [Logical Model](design/4-logical-model.md)
-* [Syntax Specification](design/5-syntax-specification.md)
+* [Requirements](<3 requirements/README.md>)
+* [Logical Model](<4 logical-model/README.md>)
+* [Syntax Specification](<5 syntax-specification/README.md>)
 
 ## Examples
 
