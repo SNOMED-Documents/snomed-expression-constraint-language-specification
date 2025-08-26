@@ -14,8 +14,8 @@
 
 ## Examples
 
-* [6.1-simple-expression-constraints](<6 examples/6.1-simple-expression-constraints.md>)
-* [6.2-refinements](<6 examples/6.2-refinements.md>)
+* [Simple Expression Constraints](<6 examples/6.1-simple-expression-constraints.md>)
+* [Refinements](<6 examples/6.2-refinements.md>)
 * [6.3-cardinality](<6 examples/6.3-cardinality.md>)
 * [6.4-conjunction-and-disjunction](<6 examples/6.4-conjunction-and-disjunction.md>)
 * [6.5-exclusion-and-not-equals](<6 examples/6.5-exclusion-and-not-equals.md>)
