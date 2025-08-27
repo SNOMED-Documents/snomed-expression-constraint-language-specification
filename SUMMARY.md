@@ -22,9 +22,9 @@
 * [Constraint Comments](<6 examples/6.6-constraint-comments.md>)
 * [Nested Expression Constraints](<6 examples/6.7-nested-expression-constraints.md>)
 * [Description Filters](<6 examples/6.8-description-filters.md>)
-* [6.9-concept-filters](<6 examples/6.9-concept-filters.md>)
-* [6.10-member-filters](<6 examples/6.10-member-filters.md>)
-* [6.11-history-supplements](<6 examples/6.11-history-supplements.md>)
+* [Concept Filters](<6 examples/6.9-concept-filters.md>)
+* [Member Filters](<6 examples/6.10-member-filters.md>)
+* [History Supplements](<6 examples/6.11-history-supplements.md>)
 * [6.12-top-and-bottom](<6 examples/6.12-top-and-bottom.md>)
 
 ## Implementation Considerations
