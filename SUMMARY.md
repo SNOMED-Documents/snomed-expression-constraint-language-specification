@@ -55,9 +55,6 @@
   * [Exclusion and Not Equals - Invalid](appendix-b-examples-of-invalid-expressions/b5-exclusion-and-not-equals-invalid-expressions.md)
   * [Nested Expression Constraints - Invalid](appendix-b-examples-of-invalid-expressions/b6-nested-expression-constraints-invalid-expressions.md)
 * [Appendix C - Dialect Aliases](appendix-c-dialect-aliases.md)
-* [appendix-d-ecl-quick-reference](appendix-d-ecl-quick-reference.md)
+* [Appendix D - ECL Quick Reference](appendix-d-ecl-quick-reference.md)
 * [Appendix E - Reference Set Fields](appendix-e-reference-set-fields.md)
-
-***
-
-* [Appendix F - Previous Versions](appendix-f-previous-versions.md)
+* [Appendix F - Previous Versions](appendices/appendix-f-previous-versions.md)

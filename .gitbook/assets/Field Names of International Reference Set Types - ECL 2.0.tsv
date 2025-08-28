@@ -1,0 +1,28 @@
+referenceSetType	term	fieldNames
+446609009	Simple type reference set	referencedComponentId
+733619002	Ordered component type reference set	referencedComponentId,order
+900000000000480006	Attribute value type reference set	referencedComponentId,valueId
+900000000000521006	Association type reference set	referencedComponentId,targetComponentId
+733618005	Ordered association type reference set	referencedComponentId,targetComponentId,order
+900000000000516008	Annotation type reference set	referencedComponentId,annotation
+900000000000512005	Query specification type reference set	referencedComponentId,query
+447258008	Ordered type reference set	referencedComponentId,order,linkedToId
+762676003	OWL expression type reference set	referencedComponentId,owlExpression
+1119417006	Postcoordinated expression type reference set	referencedComponentId,expression,substrate
+900000000000506000	Language type reference set	referencedComponentId,acceptabilityId
+900000000000496009	Simple map from SNOMED CT type reference set	referencedComponentId,mapTarget
+1187636009	Simple map to SNOMED CT type reference set	referencedComponentId,mapSource
+447250001	Complex map from SNOMED CT type reference set	referencedComponentId,mapGroup,mapPriority,mapRule,mapAdvice,mapTarget,correlationId
+609331003	Extended map from SNOMED CT type reference set	referencedComponentId,mapGroup,mapPriority,mapRule,mapAdvice,mapTarget,correlationId,mapCategoryId
+705111002	Map to SNOMED CT with correlation and origin type reference set	referencedComponentId,mapSource,attributeId,correlationId,contentOriginId
+705109006	Code to expression type reference set type reference set	referencedComponentId,mapSource,expression,definitionStatusId,correlationId,contentOriginId
+1193542003	Simple map with correlation from SNOMED CT type reference set	referencedComponentId,mapTarget,correlationId
+1193543008	Simple map with correlation to SNOMED CT type reference set	referencedComponentId,mapSource,correlationId
+1193544002	Simple map with correlation from SNOMED CT to SNOMED CT type reference set	referencedComponentId,mapTarget,correlationId
+900000000000456007	Reference set descriptor type reference set	referencedComponentId,attributeDescription,attributeType,attributeOrder
+900000000000534007	Module dependency type reference set	referencedComponentId,sourceEffectiveTime,targetEffectiveTime
+900000000000538005	Description format type reference set	referencedComponentId,descriptionFormat,descriptionLength
+723589008	MRCM domain type reference set	referencedComponentId,domainConstraint,parentDomain,proximalPrimitiveConstraint,proximalPrimitiveRefinement,domainTemplateForPrecoordination,domainTemplateForPostcoordination,guideURL
+723604009	MRCM attribute domain type reference set	referencedComponentId,domainId,grouped,attributeCardinality,attributeInGroupCardinality,ruleStrengthId,contentTypeId
+723592007	MRCM attribute range type reference set	referencedComponentId,rangeConstraint,attributeRule,ruleStrengthId,contentTypeId
+723563008	MRCM module scope type reference set	referencedComponentId,mrcmRuleRefsetId

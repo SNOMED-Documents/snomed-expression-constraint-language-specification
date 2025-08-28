@@ -1,147 +1,48 @@
-# appendix-d-ecl-quick-reference
-
-## Appendix D - ECL Quick Reference
+# Appendix D - ECL Quick Reference
 
 This section provides a quick reference to the key syntax features of the Expression Constraint Language.
 
 ## Syntax Overview
 
-The following table summarises the key symbols used in the Expression Constraint Language's brief syntax, with the ECL version in which each symbol was introduced. For more information about the version history of ECL, please refer to the 'History' section in [1. Introduction](1.-Introduction_28739382.html).
+The following table summarises the key symbols used in the Expression Constraint Language's brief syntax, with the ECL version in which each symbol was introduced. For more information about the version history of ECL, please refer to the 'History' section in [1 introduction](<1 introduction/> "mention").
 
-| **Symbol**      | **Name**                         | Version | Notes                                                                                                                                                               |
-| --------------- | -------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \*\*            | \*\*                             | Pipe    | 1.0                                                                                                                                                                 |
-| \*\*\*\*\*      | Any                              | 1.0     | Retrieves all concepts in the substrate                                                                                                                             |
-| **^**           | Member of                        | 1.0     | Retrieves the referencedComponentId of all (active) members of a reference set (or set of reference sets)                                                           |
-| **^ \[ A, B]**  | Member of (with field selection) | 2.0     | Retrieves the values of fields A and B of all (active) members of a reference set (or set of reference sets) that match the included Member filters (if applicable) |
-| **<**           | Descendant of                    | 1.0     | Retrieves all descendants (subtypes) of the specified concept _excluding_ the concept itself                                                                        |
-| **< <**         | Descendant or self of            | 1.0     | Retrieves all descendants (subtypes) of the specified concept _including_ the concept itself                                                                        |
-| **\<!**         | Child of                         | 1.1     | Retrieves all children (immediate subtypes) of the specified concept _excluding_ the concept itself                                                                 |
-| **< \<!**       | Child or self of                 | 1.4     | Retrieves all children (immediate subtypes) of the specified concept _including_ the concept itself                                                                 |
-| **>**           | Ancestor of                      | 1.0     | Retrieves all ancestors (supertypes) of the specified concept _excluding_ the concept itself                                                                        |
-| **> >**         | Ancestor or self of              | 1.0     | Retrieves all ancestors (supertypes) of the specified concept _including_ the concept itself                                                                        |
-| **>!**          | Parent of                        | 1.1     | Retrieves all parents (immediate supertypes) of the specified concept _excluding_ the concept itself                                                                |
-| **> >!**        | Parent or self of                | 1.4     | Retrieves all parents (immediate supertypes) of the specified concept _including_ the concept itself                                                                |
-| \*\*!! >        |                                  |         |                                                                                                                                                                     |
-| \*\*            | Top of set                       | 2.2     | Filters the results set, by matching only on concepts that have no ancestors within the set                                                                         |
-| \*\*!! <        |                                  |         |                                                                                                                                                                     |
-| \*\*            | Bottom of set                    | 2.2     | Filters the results set, by matching only on concepts that have no descendants within the set                                                                       |
-| **A#B**         | Alternate identifier             | 2.2     | Retrieves a single concept based on an alternate identifier, where A is the identifier scheme alias and B is the identifier code                                    |
-| **AND**         | Conjunction                      | 1.0     | Retrieves the intersection of the results of each sub-expressions                                                                                                   |
-| **OR**          | Disjunction                      | 1.0     | Retrieves the union of the results of each sub-expressions                                                                                                          |
-| **MINUS**       | Exclusion                        | 1.0     | Retrieves the members of the first expression and excludes the members returned by the second expression                                                            |
-| **:**           | Refinement                       | 1.0     | Used before one or more attribute-value pairs to refine the set of concepts retrieved                                                                               |
-| **\[1..3]**     | Cardinality                      | 1.0     | Used to indicate the minimum and maximum number of occurrences of attributes or relationship groups                                                                 |
-| **R**           | Reverse flag                     | 1.0     | Retrieves the set of attribute values (i.e. destination concepts) of a specified attribute for a specified set of concepts                                          |
-| **.**           | Dot notation                     | 1.2     | Retrieves the set of attribute values (i.e. destination concepts) of a specified attribute for a specified set of concepts                                          |
-| /\* \*/         | Comment                          | 1.1     | Allows comments to be added within the text of an expression constraint                                                                                             |
-| \{{ \}}         | Description filter               | 1.5     | Filters the result set, by matching only on concepts which have a description with a matching term, language, type, dialect and/or acceptability                    |
-| \{{ D \}}       | Description filter               | 1.6     | Filters the result set, by matching only on concepts which have a description with a matching term, language, type, dialect and/or acceptability                    |
-| \{{ C \}}       | Concept filter                   | 1.6     | Filters the result set based on the definition status, module, effectiveTime and active status of each concept                                                      |
-| \{{ M \}}       | Member filter                    | 2.0     | Filters the result set based on the value of specific fields in a reference set.                                                                                    |
-| \{{+ HISTORY\}} | History supplement               | 2.0     | Supplements the results with relevant inactive concepts                                                                                                             |
+<table><thead><tr><th width="150.7890625">Symbol</th><th width="260.5546875">Name</th><th width="60.671875">Version</th><th>Notes</th></tr></thead><tbody><tr><td><strong>|</strong></td><td>Pipe</td><td>1.0</td><td>Used on either side of a concept's term for human readability</td></tr><tr><td><strong>{{  }}</strong></td><td>Description filter</td><td>1.5</td><td>Filters the result set, by matching only on concepts which have a description with a matching term, language, type, dialect and/or acceptability</td></tr><tr><td><strong>{{+ HISTORY}}</strong></td><td>History supplement</td><td>2.0</td><td>Supplements the results with relevant inactive concepts</td></tr><tr><td><strong>{{ M }}</strong></td><td>Member filter</td><td>2.0</td><td>Filters the result set based on the value of specific fields in a reference set.</td></tr><tr><td><strong>{{ D }}</strong></td><td>Description filter</td><td>1.6</td><td>Filters the result set, by matching only on concepts which have a description with a matching term, language, type, dialect and/or acceptability</td></tr><tr><td><strong>{{ C }}</strong></td><td>Concept filter</td><td>1.6</td><td>Filters the result set based on the definition status, module, effectiveTime and active status of each concept</td></tr><tr><td><strong>R</strong></td><td>Reverse flag</td><td>1.0</td><td>Retrieves the set of attribute values (i.e. destination concepts) of a specified attribute for a specified set of concepts</td></tr><tr><td><strong>OR</strong></td><td>Disjunction</td><td>1.0</td><td>Retrieves the union of the results of each sub-expressions</td></tr><tr><td><strong>MINUS</strong></td><td>Exclusion</td><td>1.0</td><td>Retrieves the members of the first expression and excludes the members returned by the second expression</td></tr><tr><td><strong>AND</strong></td><td>Conjunction</td><td>1.0</td><td>Retrieves the intersection of the results of each sub-expressions</td></tr><tr><td><strong>A#B</strong></td><td>Alternate identifier</td><td>2.2</td><td>Retrieves a single concept based on an alternate identifier, where A is the identifier scheme alias and B is the identifier code</td></tr><tr><td><strong>^ [ A, B]</strong></td><td>Member of (with field selection)</td><td>2.0</td><td>Retrieves the values of fields A and B of all (active) members of a reference set (or set of reference sets) that match the included Member filters (if applicable)</td></tr><tr><td><strong>^</strong></td><td>Member of</td><td>1.0</td><td>Retrieves the referencedComponentId of all (active) members of a reference set (or set of reference sets)</td></tr><tr><td><strong>[1..3]</strong></td><td>Cardinality</td><td>1.0</td><td>Used to indicate the minimum and maximum number of occurrences of attributes or relationship groups</td></tr><tr><td><strong>>>!</strong></td><td>Parent or self of</td><td>1.4</td><td>Retrieves all parents (immediate supertypes) of the specified concept <em>including</em> the concept itself</td></tr><tr><td><strong>>></strong></td><td>Ancestor or self of</td><td>1.0</td><td>Retrieves all ancestors (supertypes) of the specified concept <em>including</em> the concept itself</td></tr><tr><td><strong>>!</strong></td><td>Parent of</td><td>1.1</td><td>Retrieves all parents (immediate supertypes) of the specified concept <em>excluding</em> the concept itself</td></tr><tr><td><strong>></strong></td><td>Ancestor of</td><td>1.0</td><td>Retrieves all ancestors (supertypes) of the specified concept <em>excluding</em> the concept itself</td></tr><tr><td><strong>&#x3C;&#x3C;!</strong></td><td>Child or self of</td><td>1.4</td><td>Retrieves all children (immediate subtypes) of the specified concept <em>including</em> the concept itself</td></tr><tr><td><strong>&#x3C;&#x3C;</strong></td><td>Descendant or self of</td><td>1.0</td><td>Retrieves all descendants (subtypes) of the specified concept <em>including</em> the concept itself</td></tr><tr><td><strong>&#x3C;!</strong></td><td>Child of</td><td>1.1</td><td>Retrieves all children (immediate subtypes) of the specified concept <em>excluding</em> the concept itself</td></tr><tr><td><strong>&#x3C;</strong></td><td>Descendant of</td><td>1.0</td><td>Retrieves all descendants (subtypes) of the specified concept <em>excluding</em> the concept itself</td></tr><tr><td><strong>:</strong></td><td>Refinement</td><td>1.0</td><td>Used before one or more attribute-value pairs to refine the set of concepts retrieved</td></tr><tr><td>/*  */</td><td>Comment</td><td>1.1</td><td>Allows comments to be added within the text of an expression constraint</td></tr><tr><td><strong>.</strong></td><td>Dot notation</td><td>1.2</td><td>Retrieves the set of attribute values (i.e. destination concepts) of a specified attribute for a specified set of concepts</td></tr><tr><td><strong>*</strong></td><td>Any</td><td>1.0</td><td>Retrieves all concepts in the substrate</td></tr><tr><td><strong>!!></strong><br></td><td>Top of set</td><td>2.2</td><td>Filters the results set, by matching only on concepts that have no ancestors within the set</td></tr><tr><td><strong>!!&#x3C;</strong><br></td><td>Bottom of set</td><td>2.2</td><td>Filters the results set, by matching only on concepts that have no descendants within the set</td></tr></tbody></table>
 
-## Examples
+## Examples <a href="#appendixdeclquickreference-examples" id="appendixdeclquickreference-examples"></a>
 
 The following table provides some examples of each of the key syntax features of the Expression Constraint Language.
 
-**Notes** :
+**Notes**:&#x20;
 
 1. In the table above:
-   * '**id** ' represents a single SNOMED CT concept identifier,
-   * '**term** ' represents a term associated with the concept identified by '**id** ',
-   * '**x** ', '**y** ' and '**v** ' each represent either a single concept or a set of concepts defined using an expression constraint,
-   * '**z** ' represents either a single concept or a set of concepts that are a subtype of [900000000000455006 | Reference set|](http://snomed.info/id/900000000000455006) ,
-   * '**a** ' and '**b** ' each represent either a single concept or a set of concepts that are a subtype of [410662002 | Concept model attribute|](http://snomed.info/id/410662002) , and
-   * '**min** ' and '**max** ' are two numeric values that represent the minimum and maximum cardinality allowed.
+   * '**id**' represents a single SNOMED CT concept identifier,
+   * '**term**' represents a term associated with the concept identified by '**id**',
+   * '**x**', '**y**' and '**v**' each represent either a single concept or a set of concepts defined using an expression constraint,
+   * '**z**' represents either a single concept or a set of concepts that are a subtype of [900000000000455006 | Reference set|](http://snomed.info/id/900000000000455006) ,&#x20;
+   * '**a**' and '**b**' each represent either a single concept or a set of concepts that are a subtype of [410662002 | Concept model attribute|](http://snomed.info/id/410662002) , and
+   * '**min**' and '**max**' are two numeric values that represent the minimum and maximum cardinality allowed.
 2. The default substrate, to which expression constraints are applied, includes all concepts, active relationships, active descriptions and active reference set members of a chosen SNOMED CT versioned edition.
 
-**Simple expression constraints**\
-Syntax| Evaluation Notes| Example| Example Expansion Concepts\
-**id** | term |\
-\| Only the concept with the identifier 'id'| [128477000 |Abscess|](http://snomed.info/id/128477000) | [128477000 |Abscess|](http://snomed.info/id/128477000)\
-\*\*\*\*\*| All concepts in the given substrate| \* | _Any concept in the given substrate_\
-&#xNAN;**^** z| The set of concepts which are members of the reference sets in z| ^ [723264001 |Lateralizable body structure reference set|](http://snomed.info/id/723264001) | [181216001 |Entire lung|](http://snomed.info/id/181216001)
+### Simple Expression Constraints
 
-[65784005 |Structure of fundus of eye|](http://snomed.info/id/65784005)\
-\*\*< \*\*x| The set of all descendants (both direct and indirect) of x| < [73211009 |Diabetes mellitus|](http://snomed.info/id/73211009) < 73211009 |Diabetes mellitus)|| [46635009 |Diabetes mellitus type 1|](http://snomed.info/id/46635009)
+<table><thead><tr><th width="130.359375">Syntax</th><th>Evaluation Notes</th><th>Example</th><th>Example Expansion Concepts</th></tr></thead><tbody><tr><td>id | term |</td><td>Only the concept with the identifier id</td><td>128477000 | Abscess|</td><td>128477000 | Abscess|</td></tr><tr><td>*</td><td>All concepts in the given substrate</td><td>*</td><td>Any concept in the given substrate</td></tr><tr><td>^ z</td><td>The set of concepts which are members of the reference sets in z</td><td>^ 723264001 | Lateralizable body structure reference set|</td><td>181216001 | Entire lung|  <br><br>65784005 | Structure of fundus of eye|</td></tr><tr><td>&#x3C; x</td><td>All descendants (direct + indirect) of x</td><td>&#x3C; 73211009 | Diabetes mellitus|</td><td>46635009 | Diabetes mellitus type 1|  <br><br>8801005 | Secondary diabetes mellitus|</td></tr><tr><td>&#x3C;&#x3C; x</td><td>All descendants of x, plus x itself</td><td>&#x3C;&#x3C; 73211009 | Diabetes mellitus|</td><td>73211009 | Diabetes mellitus|  <br><br>46635009 | Diabetes mellitus type 1|  <br><br>8801005 | Secondary diabetes mellitus|</td></tr><tr><td>&#x3C;! x</td><td>All immediate children of x</td><td>&#x3C;! 362965005 | Disorder of body system|</td><td>49601007 | Disorder of cardiovascular system|  <br><br>362969004 | Disorder of endocrine system|</td></tr><tr><td>&#x3C;&#x3C;! x</td><td>All immediate children of x, plus x itself</td><td>&#x3C;&#x3C;! 362965005 | Disorder of body system|</td><td>362965005 | Disorder of body system|  <br><br>49601007 | Disorder of cardiovascular system|  <br><br>362969004 | Disorder of endocrine system|</td></tr><tr><td>> x</td><td>All ancestors (direct + indirect) of x</td><td>> 279420009 | Hematoma of skin|</td><td>106076001 | Skin finding|  <br><br>297968009 | Bleeding skin|</td></tr><tr><td>>> x</td><td>All ancestors of x, plus x itself</td><td>>> 279420009 | Hematoma of skin|</td><td>106076001 | Skin finding|  <br><br>297968009 | Bleeding skin|  <br><br>279420009 | Hematoma of skin|</td></tr><tr><td>>! x</td><td>Immediate parents of x</td><td>>! 22298006 | Myocardial infarction|</td><td>57809008 | Myocardial disease|  <br><br>251061000 | Myocardial necrosis|</td></tr><tr><td>>>! x</td><td>Immediate parents of x, plus x itself</td><td>>>! 22298006 | Myocardial infarction|</td><td>22298006 | Myocardial infarction|  <br><br>57809008 | Myocardial disease|  <br><br>251061000 | Myocardial necrosis|</td></tr></tbody></table>
 
-[8801005 |Secondary diabetes mellitus|](http://snomed.info/id/8801005)\
-\*\*< < \*\*x| The set of all descendants (both direct and indirect) of x, plus x itself| << [73211009 |Diabetes mellitus|](http://snomed.info/id/73211009) | [73211009 |Diabetes mellitus|](http://snomed.info/id/73211009)
+### Conjunction, Disjunction and Exclusion
 
-[46635009 |Diabetes mellitus type 1|](http://snomed.info/id/46635009)
+<table><thead><tr><th width="105.79296875">Syntax</th><th>Evaluation Notes</th><th>Example</th><th>Example Expansion Concepts</th></tr></thead><tbody><tr><td>x AND y</td><td>Concepts that are in both x and y (intersection)</td><td>&#x3C; 19829001 | Disorder of lung| AND &#x3C; 87628006 | Bacterial infectious disease|</td><td>430395005 | Pneumonia caused by Gram negative bacteria|  <br><br>154283005 | Pulmonary tuberculosis|</td></tr><tr><td>x OR y</td><td>Concepts that are in either x or y (union)</td><td>&#x3C; 73452002 | Abscess of lung| OR &#x3C; 275504005 | Cyst of lung|</td><td>446543007 | Tuberculous abscess of lung|  <br><br>87119009 | Congenital cystic lung|</td></tr><tr><td>x MINUS y</td><td>Concepts in x but not in y (exclusion)</td><td>&#x3C; 29303009 | Electrocardiographic procedure| MINUS &#x3C; 75444003 | Fetal electrocardiogram|</td><td><p>447114004 | 12 lead electrocardiogram during exercise| <br></p><p>252417001 | 24 Hour electrocardiogram|</p></td></tr></tbody></table>
 
-[8801005 |Secondary diabetes mellitus|](http://snomed.info/id/8801005)\
-\*\*\<! \*\*x\
-\| The set of all immediate children of x| \<! [362965005 |Disorder of body system|](http://snomed.info/id/362965005) | [49601007 |Disorder of cardiovascular system|](http://snomed.info/id/49601007)
+### Refinement
 
-[362969004 |Disorder of endocrine system|](http://snomed.info/id/362969004)\
-\*\*< \<! \*\*x\
-\| The set of all immediate children of x, plus x itself| <\<! [362965005 |Disorder of body system|](http://snomed.info/id/362965005) | [362965005 |Disorder of body system|](http://snomed.info/id/362965005)
+<table><thead><tr><th width="153.28515625">Syntax</th><th width="177.64453125">Evaluation Notes</th><th>Example</th><th>Example Expansion Concepts</th></tr></thead><tbody><tr><td>x : a = y</td><td>Concepts in x with attribute a = value y</td><td>&#x3C; 385494008 | Hematoma| : &#x3C;&#x3C; 370135005 | Pathological process| = &#x3C;&#x3C; 441862004 | Infectious process|</td><td>698573001 | Infected hematoma|  <br><br>444109008 | Infection of wound hematoma|</td></tr><tr><td>x : a = y, b = v</td><td>Concepts in x with a=y and b=v</td><td>&#x3C; 71388002 | Procedure| : &#x3C;&#x3C; 363704007 | Procedure site| = &#x3C;&#x3C; 69695003 | Stomach structure| , &#x3C;&#x3C; 405815000 | Procedure device| = &#x3C;&#x3C; 86174004 | Laparoscope|</td><td>708987006 | Laparoscopic total gastrectomy|  <br><br>57922004 | Laparoscopic pyloromyotomy|</td></tr><tr><td>x : { a = y, b = v }</td><td>Concepts in x with a role group containing both a=y and b=v</td><td>&#x3C; 71388002 | Procedure| : { 405813007 | Procedure site - Direct| = &#x3C;&#x3C; 10200004 | Liver structure| , 260686004 | Method| = &#x3C;&#x3C; 129433002 | Inspection - action| }</td><td>773252007 | Diagnostic laparoscopy of liver| <br><br>20933000 | Endoscopy of liver|</td></tr></tbody></table>
 
-[49601007 |Disorder of cardiovascular system|](http://snomed.info/id/49601007)
+### Cardinality
 
-[362969004 |Disorder of endocrine system|](http://snomed.info/id/362969004)\
-\*\*> \*\*x\
-\| The set of all ancestors (both direct and indirect) of x| > [279420009 |Hematoma of skin|](http://snomed.info/id/279420009) | [106076001 |Skin finding|](http://snomed.info/id/106076001)
+| Syntax                    | Evaluation Notes                                                   | Example                                                                                                                                         | Example Expansion Concepts                                                                                                                                                            |
+| ------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| x : \[min..max] a = y     | Concepts in x with between _min_ and _max_ relationships where a=y | < 373873005 \| Pharmaceutical / biologic product\| : \[3..\*] 127489000 \| Has active ingredient\| = < 105590001 \| Substance\|                 | <p>786732006 | Product containing only brompheniramine and codeine and phenylpropanolamine|  <br><br>787979009 | Product containing cyanocobalamin and folic acid and pyridoxine|</p> |
+| x : \[min..max] { a = y } | Concepts in x with between _min_ and _max_ role groups where a=y   | < 404684003 \| Clinical finding\| : \[2..3]{ 363698007 \| Finding site\| = \* , 116676008 \| Associated morphology\| = 72704001 \| Fracture\| } | <p>271577005 | Fracture of shaft of tibia and fibula |  <br><br>75857000 | Fracture of radius AND ulna|</p>                                                                           |
 
-[297968009 |Bleeding skin|](http://snomed.info/id/297968009)\
-&#xNAN;**> >** x| The set of all ancestors (both direct and indirect) of x, plus x itself| >> [279420009 |Hematoma of skin|](http://snomed.info/id/279420009) | [106076001 |Skin finding|](http://snomed.info/id/106076001)
+### Reversed Attributes
 
-[297968009 |Bleeding skin|](http://snomed.info/id/297968009)
+<table data-full-width="false"><thead><tr><th width="158.6875">Syntax</th><th>Evaluation Notes</th><th>Example</th><th>Example Expansion Concepts</th></tr></thead><tbody><tr><td>y : R a = x</td><td>Concepts in y that are destinations of attribute a from source x</td><td>&#x3C; 91723000 | Anatomical structure| : R 363698007 | Finding site| = &#x3C; 445945000 | Infectious disease associated with AIDS|</td><td>280369009 | Brain tissue structure|  <br><br>39607008 | Lung structure|</td></tr><tr><td>x . a</td><td>Values of attribute a from source x</td><td>&#x3C; 27658006 | Product containing amoxicillin| . 127489000 | Has active ingredient|</td><td>372687004 | Amoxicillin|  <br><br>395939008 | Clavulanic acid|</td></tr></tbody></table>
 
-[279420009 |Hematoma of skin|](http://snomed.info/id/279420009)\
-\*\*>! \*\*x| The set of all immediate parents of x| >! [22298006 |Myocardial infarction|](http://snomed.info/id/22298006) | [57809008 |Myocardial disease|](http://snomed.info/id/57809008)
-
-[251061000 |Myocardial necrosis|](http://snomed.info/id/251061000)\
-\*\*> >! \*\*x| The set of all immediate parents of x, plus x itself| >>! [22298006 |Myocardial infarction|](http://snomed.info/id/22298006) | [22298006 |Myocardial infarction|](http://snomed.info/id/22298006)
-
-[57809008 |Myocardial disease|](http://snomed.info/id/57809008)
-
-[251061000 |Myocardial necrosis|](http://snomed.info/id/251061000)\
-**Conjunction, Disjunction and Exclusion**\
-Syntax| Evaluation Notes| Example| Example Expansion Concepts\
-x**AND** y\
-\| The set of concepts that are both in x and in y (i.e. the intersection of x and y)| < [19829001 |Disorder of lung|](http://snomed.info/id/19829001) AND < [87628006 |Bacterial infectious disease|](http://snomed.info/id/87628006) | [430395005 |Pneumonia caused by Gram negative bacteria|](http://snomed.info/id/430395005)
-
-[154283005 |Pulmonary tuberculosis|](http://snomed.info/id/154283005)\
-x**OR** y| The set of concepts that are either in x or in y (i.e. the union of x and y)| < [73452002 |Abscess of lung|](http://snomed.info/id/73452002) OR < [275504005 |Cyst of lung|](http://snomed.info/id/275504005) | [446543007 |Tuberculous abscess of lung|](http://snomed.info/id/446543007)
-
-[87119009 |Congenital cystic lung|](http://snomed.info/id/87119009)\
-x**MINUS** y| The set of concepts that are in x but are not in y (i.e. x excluding concepts in y)| < [29303009 |Electrocardiographic procedure|](http://snomed.info/id/29303009) MINUS < [75444003 |Fetal electrocardiogram|](http://snomed.info/id/75444003) | [447114004 |12 lead electrocardiogram during exercise|](http://snomed.info/id/447114004)
-
-[252417001 |24 Hour electrocardiogram|](http://snomed.info/id/252417001)\
-**Refinement**\
-Syntax| Evaluation Notes| Example| Example Expansion Concepts\
-x **:** a **=** y| The set of concepts in **x** , which have a necessary relationship with an attribute in **a** and a value in **y**| < [385494008 |Hematoma|](http://snomed.info/id/385494008) :\
-<< [370135005 |Pathological process|](http://snomed.info/id/370135005) = << [441862004 |Infectious process|](http://snomed.info/id/441862004) | [698573001 |Infected hematoma|](http://snomed.info/id/698573001)
-
-[444109008 |Infection of wound hematoma|](http://snomed.info/id/444109008)\
-x **:** a **=** y\*\*,\*\* b **=** v| The set of concepts in **x** , which have both a necessary relationship with an attribute in **a** and a value in **y** , and also have a necessary relationship (either the same one or a different one) with an attribute in **b** and a value in **v**| < [71388002 |Procedure|](http://snomed.info/id/71388002) :\
-<< [363704007 |Procedure site|](http://snomed.info/id/363704007) = << [69695003 |Stomach structure|](http://snomed.info/id/69695003) ,\
-<< [405815000 |Procedure device|](http://snomed.info/id/405815000) = << [86174004 |Laparoscope|](http://snomed.info/id/86174004) | [708987006 |Laparoscopic total gastrectomy|](http://snomed.info/id/708987006)
-
-[57922004 |Laparoscopic pyloromyotomy|](http://snomed.info/id/57922004)\
-x **: {** a **=** y\*\*,\*\* b **=** v **}**| The set of concepts in **x** , which have a role group that contains both a necessary relationship with an attribute in **a** and a value in **y** , and also have a necessary relationship (either the same one or a different one) with an attribute in **b** and a value in **v**| < [71388002 |Procedure (procedure)|](http://snomed.info/id/71388002) : { [405813007 |Procedure site - Direct|](http://snomed.info/id/405813007) = << [10200004 |Liver structure|](http://snomed.info/id/10200004) , [260686004 |Method|](http://snomed.info/id/260686004) = << [129433002 |Inspection - action|](http://snomed.info/id/129433002) } | [773252007 |Diagnostic laparoscopy of liver|](http://snomed.info/id/773252007)
-
-[20933000 |Endoscopy of liver|](http://snomed.info/id/20933000)\
-**Cardinality**\
-Syntax| Evaluation Notes| Example| Example Expansion Concepts\
-x **: \[min .. max]** a **=** y| The set of concepts in **x** , which have between **min** and **max** necessary relationships with an attribute in **a** and a value in **y**| < [373873005 |Pharmaceutical / biologic product|](http://snomed.info/id/373873005) :\
-\[3..\*] [127489000 |Has active ingredient|](http://snomed.info/id/127489000) = < [105590001 |Substance|](http://snomed.info/id/105590001) | [786732006 |Product containing only brompheniramine and codeine and phenylpropanolamine|](http://snomed.info/id/786732006)
-
-[787979009 |Product containing cyanocobalamin and folic acid and pyridoxine|](http://snomed.info/id/787979009)\
-x **: \[min .. max] {** a **=** y **}**| The set of concepts in **x** , which have between **min** and **max** role groups that contain a necessary relationship with an attribute in **a** and a value in **y**| < [404684003 |Clinical finding|](http://snomed.info/id/404684003) :\
-\[2..3]{ [363698007 |Finding site|](http://snomed.info/id/363698007) = \*,\
-[116676008 |Associated morphology|](http://snomed.info/id/116676008) = [72704001 |Fracture|](http://snomed.info/id/72704001) }\
-\| [271577005 |Fracture of shaft of tibia and fibula|](http://snomed.info/id/271577005)
-
-[75857000 |Fracture of radius AND ulna|](http://snomed.info/id/75857000)\
-**Reversed Attributes**\
-Syntax| Evaluation Notes| Example| Example Expansion Concepts\
-y **: R** a **=** x| The set of concepts in y, which are the destination (ie attribute value) of a necessary relationship on a source concept in **x** with an attribute in **a**| < [91723000 |Anatomical structure|](http://snomed.info/id/91723000) : R [363698007 |Finding site|](http://snomed.info/id/363698007) = < [445945000 |Infectious disease associated with acquired immune deficiency syndrome|](http://snomed.info/id/445945000) | [280369009 |Brain tissue structure|](http://snomed.info/id/280369009)
-
-[39607008 |Lung structure|](http://snomed.info/id/39607008) 395939008 |Clavulanic acid (substance)|\
-x **.** a| The set of attribute values (ie destination concepts) of all necessary relationships on a source concept in **x** with an attribute in **a**| < [27658006 |Product containing amoxicillin|](http://snomed.info/id/27658006) . [127489000 |Has active ingredient|](http://snomed.info/id/127489000) | [372687004 |Amoxicillin|](http://snomed.info/id/372687004)
-
-[395939008 |Clavulanic acid|](http://snomed.info/id/395939008)
