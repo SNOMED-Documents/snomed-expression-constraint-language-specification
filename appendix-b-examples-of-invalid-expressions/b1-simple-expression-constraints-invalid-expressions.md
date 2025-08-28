@@ -1,54 +1,9 @@
-# B.1 Simple Expression Constraints - Invalid Expressions
+# Simple Expression Constraints - Invalid
 
-| **Expression Constraint** | **INVALID Expression**[1](https://confluence.ihtsdotools.org/display/DOCECL/B.1+Simple+Expression+Constraints+-+Invalid+Expressions#Footnote1) |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Precoordinated**        | **Postcoordinated**                                                                                                                            |
-| \[ 404684003              | Clinical finding                                                                                                                               |
-| \[ 363698007              | Finding site                                                                                                                                   |
-| \[ 80891009               | Heart structure                                                                                                                                |
-| \[ 71388002               | Procedure                                                                                                                                      |
-| < \[ 404684003            | Clinical finding                                                                                                                               |
-| \[ 405813007              | Procedure site - Direct                                                                                                                        |
-| \[ 80891009               | Heart structure                                                                                                                                |
-| \[ 71388002               | Procedure                                                                                                                                      |
-| << \[ 73211009            | Diabetes mellitus                                                                                                                              |
-| \[ 363698007              | Finding site                                                                                                                                   |
-| \[ 113331007              | Structure of endocrine system                                                                                                                  |
-| \[ 362969004              | Disorder of endocrine system                                                                                                                   |
-| \<! \[ 404684003          | Clinical finding                                                                                                                               |
-| \[ 116676008              | Associated morphology                                                                                                                          |
-| \[ 79654002               | Edema                                                                                                                                          |
-| \[ 363698007              | Finding site                                                                                                                                   |
-| \[ 80891009               | Heart structure                                                                                                                                |
-| \[ 233709006              | Toxic pulmonary edema                                                                                                                          |
+{% hint style="info" %}
+1 Where necessary, these examples make some assumptions about the membership of the example reference sets.\
+2 Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there is at least one intermediate expression between this expression and 404684003 |Clinical finding|.\
+3 Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there is at least one intermediate expression between 40541001 |Acute pulmonary edema| and this expression.
+{% endhint %}
 
-> [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) :\
-> [246112005 | Severity|](http://snomed.info/id/246112005) =\
-> [24484000 | Severe|](http://snomed.info/id/24484000)\
-> [233709006 | Toxic pulmonary edema|](http://snomed.info/id/233709006)\
-> [304527002 | Acute asthma|](http://snomed.info/id/304527002)
->
-> > [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [233709006 | Toxic pulmonary edema|](http://snomed.info/id/233709006) | [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) :\
-> > [246112005 | Severity|](http://snomed.info/id/246112005) =\
-> > [24484000 | Severe|](http://snomed.info/id/24484000)\
-> > [304527002 | Acute asthma|](http://snomed.info/id/304527002)\
-> > ! [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [404684003 | Clinical finding|](http://snomed.info/id/404684003) | [64572001 | Disease|](http://snomed.info/id/64572001) :\
-> > [263502005 | Clinical course|](http://snomed.info/id/263502005) =\
-> > [424124008 | Sudden onset AND/OR short duration|](http://snomed.info/id/424124008) [3](https://confluence.ihtsdotools.org/display/DOCECL/B.1+Simple+Expression+Constraints+-+Invalid+Expressions#Footnote3)\
-> > [267038008 | Edema|](http://snomed.info/id/267038008)\
-> > ^ [700043003 | Example problem list concepts reference set|](http://snomed.info/id/700043003) | [6143009 | Diabetic education|](http://snomed.info/id/6143009) | [71388002 | Procedure|](http://snomed.info/id/71388002) :\
-> > [405813007 | Procedure site - Direct|](http://snomed.info/id/405813007) =\
-> > [80891009 | Heart structure|](http://snomed.info/id/80891009)\
-> > [75367002 | Blood pressure|](http://snomed.info/id/75367002)
-
-* \| -| -\
-  \-| -\
-  \-| -
-
-***
-
-| Footnotes Ref                                                                                                                    | Notes                                                                                                                                                                                                                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [1](https://confluence.ihtsdotools.org/display/DOCECL/B.1+Simple+Expression+Constraints+-+Invalid+Expressions#FootnoteMarker1-0) | Where necessary, these examples make some assumptions about the membership of the example reference sets.                                                                                                                                                                                                            |
-| [2](https://confluence.ihtsdotools.org/display/DOCECL/B.1+Simple+Expression+Constraints+-+Invalid+Expressions#FootnoteMarker2-0) | Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there is at least one intermediate expression between this expression and \[404684003 |
-| [3](https://confluence.ihtsdotools.org/display/DOCECL/B.1+Simple+Expression+Constraints+-+Invalid+Expressions#FootnoteMarker3-0) | Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there is at least one intermediate expression between \[40541001                      |
+<table data-full-width="true"><thead><tr><th width="279.265625">Invalid Expression Constraint</th><th width="290.84375">Precoordinated</th><th>Postcoordinated</th></tr></thead><tbody><tr><td>404684003 | Clinical finding|</td><td>56265001 | Heart disease|  71388002 | Procedure|</td><td>404684003 | Clinical finding| : 363698007 | Finding site| = 80891009 | Heart structure|</td></tr><tr><td>&#x3C; 404684003 | Clinical finding|</td><td>404684003 | Clinical finding|  71388002 | Procedure|</td><td>71388002 | Procedure| : 405813007 | Procedure site - Direct| = 80891009 | Heart structure|</td></tr><tr><td>&#x3C;&#x3C; 73211009 | Diabetes mellitus|</td><td>71388002 | Procedure|</td><td>404684003 | Clinical finding| : 363698007 | Finding site| = 113331007 | Structure of endocrine system|  362969004 | Disorder of endocrine system|</td></tr><tr><td>&#x3C;! 404684003 | Clinical finding|</td><td>404684003 | Clinical finding|  233709006 | Toxic pulmonary edema|</td><td>404684003 | Clinical finding| : 116676008 | Associated morphology| = 79654002 | Edema| , 363698007 | Finding site| = 80891009 | Heart structure|  > 40541001 | Acute pulmonary edema|</td></tr><tr><td>> 40541001 | Acute pulmonary edema|</td><td>40541001 | Acute pulmonary edema|  233709006 | Toxic pulmonary edema|</td><td>40541001 | Acute pulmonary edema| : 246112005 | Severity| = 24484000 | Severe|  304527002 | Acute asthma|</td></tr><tr><td>>> 40541001 | Acute pulmonary edema|</td><td>233709006 | Toxic pulmonary edema|</td><td>40541001 | Acute pulmonary edema| : 246112005 | Severity| = 24484000 | Severe|  304527002 | Acute asthma|</td></tr><tr><td>>! 40541001 | Acute pulmonary edema|</td><td>404684003 | Clinical finding|  267038008 | Edema|</td><td>64572001 | Disease| : 263502005 | Clinical course| = 424124008 | Sudden onset AND/OR short duration|</td></tr><tr><td>^ 700043003 | Example problem list concepts reference set|</td><td>6143009 | Diabetic education|  75367002 | Blood pressure|</td><td>71388002 | Procedure| : 405813007 | Procedure site - Direct| = 80891009 | Heart structure|</td></tr><tr><td>*</td><td>–</td><td>–</td></tr></tbody></table>

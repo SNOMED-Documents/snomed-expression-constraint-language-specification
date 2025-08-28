@@ -1,63 +1,7 @@
-# A.1 Simple Expression Constraints - Valid Expressions
+# Simple Expression Constraints - Valid Expressions
 
-| **Expression Constraint** | **Valid Expression**[1](https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#Footnote1) |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Precoordinated**        | **Postcoordinated**                                                                                                                        |
-| \[ 404684003              | Clinical finding                                                                                                                           |
-| < \[ 404684003            | Clinical finding                                                                                                                           |
-| \[ 363698007              | Finding site                                                                                                                               |
-| \[ 80891009               | Heart structure                                                                                                                            |
-| \[ 56265001               | Heart disease                                                                                                                              |
-| << \[ 73211009            | Diabetes mellitus                                                                                                                          |
-| \[ 42752001               | Due to                                                                                                                                     |
-| \[ 61823004               | Injury of pancreas                                                                                                                         |
-| \[ 46635009               | Diabetes mellitus type 1                                                                                                                   |
-| \[ 105401000119101        | Diabetes mellitus due to pancreatic injury                                                                                                 |
-| \<! \[ 404684003          | Clinical finding                                                                                                                           |
-| \[ 116676008              | Associated morphology                                                                                                                      |
-| \[ 79654002               | Edema                                                                                                                                      |
-| \[ 267038008              | Edema                                                                                                                                      |
+<table data-full-width="true"><thead><tr><th width="181.33984375">Expression Constraint</th><th width="239.7890625">Precoordinated</th><th>Postcoordinated</th></tr></thead><tbody><tr><td>404684003 | Clinical finding|</td><td>404684003 | Clinical finding|</td><td><em>(none)</em></td></tr><tr><td>&#x3C; 404684003 | Clinical finding|</td><td>64572001 | Disease|</td><td>404684003 | Clinical finding| : 363698007 | Finding site| = 80891009 | Heart structure|</td></tr><tr><td>&#x3C;&#x3C; 73211009 | Diabetes mellitus|</td><td>56265001 | Heart disease<br><br>|46635009 | Diabetes mellitus type |<br><br>105401000119101 | Diabetes mellitus due to pancreatic injury|</td><td>73211009 | Diabetes mellitus| : 42752001 | Due to| = 61823004 | Injury of pancreas|</td></tr><tr><td>&#x3C;! 404684003 | Clinical finding|</td><td>64572001 | Disease|<br><br>267038008 | Edema|</td><td>404684003 | Clinical finding| : 116676008 | Associated morphology| = 79654002 | Edema|\> 40541001 | Acute pulmonary edema|111273006 | Acute respiratory disease|64572001 | Disease| : 116676008 | Associated morphology| = 79654002 | Edema| , 363698007 | Finding site| = 39607008 | Lung structure|</td></tr><tr><td>>> 40541001 | Acute pulmonary edema|</td><td>40541001 | Acute pulmonary edema|</td><td>64572001 | Disease| : 263502005 | Clinical course| = 424124008 | Sudden onset AND/OR short duration| , { 116676008 | Associated morphology| = 40829002 | Acute edema| , 363698007 | Finding site| = 39607008 | Lung structure| }111273006 | Acute respiratory disease|404684003 | Clinical finding|138875005 | SNOMED CT concept|</td></tr><tr><td>>! 40541001 | Acute pulmonary edema|</td><td>111273006 | Acute respiratory disease|<br><br>19242006 | Pulmonary edema|</td><td>19829001 | Disorder of lung| : { 116676008 | Associated morphology| = 79654002 | Edema| , 363698007 | Finding site| = 39607008 | Lung structure| }</td></tr><tr><td>^ 700043003 | Example problem list concepts reference set|</td><td>394659003 | Acute coronary syndrome|</td><td>194828000 | Angina|29857009 | Chest pain|</td></tr><tr><td>*</td><td>138875005 | SNOMED CT concept|<br><br>404684003 | Clinical finding| : 363698007 | Finding site| = 80891009 | Heart structure|</td><td>404684003 | Clinical finding|71388002 | Procedure| : 405813007 | Procedure site - Direct| = 66754008 | Appendix structure|322236009 | Paracetamol 500mg tablet|373873005 | Pharmaceutical / biologic product| : { 127489000 | Has active ingredient| = 412031009 | Paracetamol or derivative| }</td></tr></tbody></table>
 
-> [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [111273006 | Acute respiratory disease|](http://snomed.info/id/111273006) | [64572001 | Disease|](http://snomed.info/id/64572001) :\
-> [116676008 | Associated morphology|](http://snomed.info/id/116676008) =\
-> [79654002 | Edema|](http://snomed.info/id/79654002) ,\
-> [363698007 | Finding site|](http://snomed.info/id/363698007) =\
-> [39607008 | Lung structure|](http://snomed.info/id/39607008)\
-> [404684003 | Clinical finding|](http://snomed.info/id/404684003)\
-> [138875005 | SNOMED CT concept|](http://snomed.info/id/138875005)
->
-> > [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [64572001 | Disease|](http://snomed.info/id/64572001) :\
-> > [263502005 | Clinical course|](http://snomed.info/id/263502005) =\
-> > [424124008 | Sudden onset AND/OR short duration|](http://snomed.info/id/424124008) ,\
-> > { [116676008 | Associated morphology|](http://snomed.info/id/116676008) =\
-> > [40829002 | Acute edema|](http://snomed.info/id/40829002) ,\
-> > [363698007 | Finding site|](http://snomed.info/id/363698007) =\
-> > [39607008 | Lung structure|](http://snomed.info/id/39607008) }\
-> > [111273006 | Acute respiratory disease|](http://snomed.info/id/111273006)\
-> > [404684003 | Clinical finding|](http://snomed.info/id/404684003)\
-> > [138875005 | SNOMED CT concept|](http://snomed.info/id/138875005)\
-> > ! [40541001 | Acute pulmonary edema|](http://snomed.info/id/40541001) | [111273006 | Acute respiratory disease|](http://snomed.info/id/111273006) | [19829001 | Disorder of lung|](http://snomed.info/id/19829001) :\
-> > { [116676008 | Associated morphology|](http://snomed.info/id/116676008) =\
-> > [79654002 | Edema|](http://snomed.info/id/79654002) ,\
-> > [363698007 | Finding site|](http://snomed.info/id/363698007) =\
-> > [39607008 | Lung structure|](http://snomed.info/id/39607008) } [3](https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#Footnote3)\
-> > [19242006 | Pulmonary edema|](http://snomed.info/id/19242006)\
-> > ^ [700043003 | Example problem list concepts reference set|](http://snomed.info/id/700043003) | [394659003 | Acute coronary syndrome|](http://snomed.info/id/394659003) | -\
-> > [194828000 | Angina|](http://snomed.info/id/194828000)\
-> > [29857009 | Chest pain|](http://snomed.info/id/29857009)
 
-* \| [138875005 | SNOMED CT concept|](http://snomed.info/id/138875005) | [404684003 | Clinical finding|](http://snomed.info/id/404684003) :\
-  [363698007 | Finding site|](http://snomed.info/id/363698007) =\
-  [80891009 | Heart structure|](http://snomed.info/id/80891009)\
-  [404684003 | Clinical finding|](http://snomed.info/id/404684003) | [71388002 | Procedure|](http://snomed.info/id/71388002) :\
-  [405813007 | Procedure site - Direct|](http://snomed.info/id/405813007) =\
-  [66754008 | Appendix structure|](http://snomed.info/id/66754008)\
-  [322236009 | Paracetamol 500mg tablet|](http://snomed.info/id/322236009) | [373873005 | Pharmaceutical / biologic product|](http://snomed.info/id/373873005) :\
-  { [127489000 | Has active ingredient|](http://snomed.info/id/127489000) =\
-  [412031009 | Paracetamol or derivative|](http://snomed.info/id/412031009) }
 
-| Footnotes Ref                                                                                                                  | Notes                                                                                                                                                                                                                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [1](https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker1-0) | Where necessary, these examples make some assumptions about the membership of the example reference sets.                                                                                                                                                                                                    |
-| [2](https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker2-0) | Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there are no intermediate expressions between this expression and \[404684003 |
-| [3](https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker3-0) | Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there are no intermediate expressions between \[40541001                      |
+<table><thead><tr><th width="85.89453125">Footnotes Ref</th><th>Notes</th></tr></thead><tbody><tr><td><a href="https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker1-0">1</a></td><td>Where necessary, these examples make some assumptions about the membership of the example reference sets.</td></tr><tr><td><a href="https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker2-0">2</a></td><td>Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there are no intermediate expressions between this expression and [404684003</td></tr><tr><td><a href="https://confluence.ihtsdotools.org/display/DOCECL/A.1+Simple+Expression+Constraints+-+Valid+Expressions#FootnoteMarker3-0">3</a></td><td>Please note that this makes the assumption that the given expression constraint is executed against a finite set of expressions that has been pre-classified (e.g. in an expression repository), and that after classification there are no intermediate expressions between [40541001</td></tr></tbody></table>

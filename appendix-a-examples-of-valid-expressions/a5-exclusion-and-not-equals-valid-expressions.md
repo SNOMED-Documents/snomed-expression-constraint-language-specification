@@ -1,67 +1,6 @@
-# A.5 Exclusion and Not Equals - Valid Expressions
+# Exclusion and Not Equals - Valid Expressions
 
-| **Expression Constraint** | **Valid Expression**[1](https://confluence.ihtsdotools.org/display/DOCECL/A.5+Exclusion+and+Not+Equals+-+Valid+Expressions#Footnote1) |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Precoordinated**        | **Postcoordinated**                                                                                                                   |
-| << \[ 19829001            | Disorder of lung                                                                                                                      |
-| << \[ 301867009           | Edema of trunk                                                                                                                        |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 18115005               | Pathologic calcification                                                                                                              |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 31094006               | Structure of lobe of lung                                                                                                             |
-| \[ 413839001              | Chronic lung disease                                                                                                                  |
-| << \[ 19829001            | Disorder of lung                                                                                                                      |
-| ^ \[ 700043003            | Example problem list concepts reference set                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 18115005               | Pathologic calcification                                                                                                              |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 31094006               | Structure of lobe of lung                                                                                                             |
-| < \[ 404684003            | Clinical finding                                                                                                                      |
-| \[ 116676008              | Associated morphology                                                                                                                 |
-| ((<< \[ 56208002          | Ulcer                                                                                                                                 |
-| << \[ 50960005            | Hemorrhage                                                                                                                            |
-| << \[ 26036001            | Obstruction                                                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 55075001               | Bleeding ulcer                                                                                                                        |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 14374004               | Structure of lymphatic vessel of esophagus                                                                                            |
-| < \[ 404684003            | Clinical finding                                                                                                                      |
-| \[ 116676008              | Associated morphology                                                                                                                 |
-| << \[ 26036001            | Obstruction                                                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 26036001               | Obstruction                                                                                                                           |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 422897007              | Vascular structure of stomach                                                                                                         |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 45771005               | Acute bleeding ulcer                                                                                                                  |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 422897007              | Vascular structure of stomach                                                                                                         |
-| \[ 46708007               | Acute gastric ulcer with hemorrhage AND obstruction                                                                                   |
-| < \[ 404684003            | Clinical finding                                                                                                                      |
-| \[ 116676008              | Associated morphology                                                                                                                 |
-| << \[ 26036001            | Obstruction                                                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 55075001               | Bleeding ulcer                                                                                                                        |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 14374004               | Structure of lymphatic vessel of oesophagus                                                                                           |
-| \[ 15902003               | Gastric ulcer with hemorrhage                                                                                                         |
-| < \[ 404684003            | Clinical finding                                                                                                                      |
-| \[ 116676008              | Associated morphology                                                                                                                 |
-| << \[ 26036001            | Obstruction                                                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 26036001               | Obstruction                                                                                                                           |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 314600001              | Choledochoenterostomy stoma                                                                                                           |
-| \[ 84906002               | Local cyanosis                                                                                                                        |
-| < \[ 404684003            | Clinical finding                                                                                                                      |
-| \[0..0] \[ 116676008      | Associated morphology                                                                                                                 |
-| != << \[ 26036001         | Obstruction                                                                                                                           |
-| \[1..\*] \[ 116676008     | Associated morphology                                                                                                                 |
-| = << \[ 26036001          | Obstruction                                                                                                                           |
-| { \[ 116676008            | Associated morphology                                                                                                                 |
-| \[ 26036001               | Obstruction                                                                                                                           |
-| \[ 363698007              | Finding site                                                                                                                          |
-| \[ 314600001              | Choledochoenterostomy stoma                                                                                                           |
+<table data-full-width="true"><thead><tr><th>Expression Constraint</th><th>Precoordinated</th><th>Postcoordinated</th></tr></thead><tbody><tr><td>&#x3C;&#x3C; 19829001 | Disorder of lung| MINUS &#x3C;&#x3C; 301867009 | Edema of trunk|</td><td>372146004 | Acute chest syndrome|  413839001 | Chronic lung disease|</td><td>27819004 | Pulmonary ossification| : { 116676008 | Associated morphology| = 18115005 | Pathologic calcification| , 363698007 | Finding site| = 31094006 | Structure of lobe of lung| }</td></tr><tr><td>&#x3C;&#x3C; 19829001 | Disorder of lung| MINUS ^ 700043003 | Example problem list concepts reference set|</td><td>233613009 | Fungal pneumonia|</td><td>27819004 | Pulmonary ossification| : { 116676008 | Associated morphology| = 18115005 | Pathologic calcification| , 363698007 | Finding site| = 31094006 | Structure of lobe of lung| }</td></tr><tr><td>&#x3C; 404684003 | Clinical finding| : 116676008 | Associated morphology| = ((&#x3C;&#x3C; 56208002 | Ulcer| AND &#x3C;&#x3C; 50960005 | Hemorrhage| ) MINUS &#x3C;&#x3C; 26036001 | Obstruction| )</td><td>15902003 | Gastric ulcer with hemorrhage|</td><td>64572001 | Disease| : { 116676008 | Associated morphology| = 55075001 | Bleeding ulcer| , 363698007 | Finding site| = 14374004 | Structure of lymphatic vessel of esophagus| }</td></tr><tr><td>&#x3C; 404684003 | Clinical finding| : 116676008 | Associated morphology| != &#x3C;&#x3C; 26036001 | Obstruction|</td><td>233613009 | Fungal pneumonia|  46708007 | Acute gastric ulcer with hemorrhage AND obstruction|</td><td>64572001 | Disease| : { 116676008 | Associated morphology| = 26036001 | Obstruction| , 363698007 | Finding site| = 422897007 | Vascular structure of stomach| } { 116676008 | Associated morphology| = 45771005 | Acute bleeding ulcer| , 363698007 | Finding site| = 422897007 | Vascular structure of stomach| }</td></tr><tr><td>&#x3C; 404684003 | Clinical finding| : [0..0] 116676008 | Associated morphology| = &#x3C;&#x3C; 26036001 | Obstruction|</td><td>233613009 | Fungal pneumonia|  15902003 | Gastric ulcer with hemorrhage|</td><td>64572001 | Disease| : { 116676008 | Associated morphology| = 55075001 | Bleeding ulcer| , 363698007 | Finding site| = 14374004 | Structure of lymphatic vessel of oesophagus| }</td></tr><tr><td>&#x3C; 404684003 | Clinical finding| : [0..0] 116676008 | Associated morphology| != &#x3C;&#x3C; 26036001 | Obstruction|</td><td>244815007 | Pyloric obstruction|  84906002 | Local cyanosis|</td><td>64572001 | Disease| : { 116676008 | Associated morphology| = 26036001 | Obstruction| , 363698007 | Finding site| = 314600001 | Choledochoenterostomy stoma| }</td></tr><tr><td>&#x3C; 404684003 | Clinical finding| : [0..0] 116676008 | Associated morphology| != &#x3C;&#x3C; 26036001 | Obstruction| AND [1..*] 116676008 | Associated morphology| = &#x3C;&#x3C; 26036001 | Obstruction|</td><td>244815007 | Pyloric obstruction|</td><td>64572001 | Disease| : { 116676008 | Associated morphology| = 26036001 | Obstruction| , 363698007 | Finding site| = 314600001 | Choledochoenterostomy stoma| }</td></tr></tbody></table>
 
 ***
 
