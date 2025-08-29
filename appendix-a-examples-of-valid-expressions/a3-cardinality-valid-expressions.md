@@ -4,7 +4,7 @@
 
 ***
 
-| Footnotes Ref                                                                                                | Notes                                                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [1](https://confluence.ihtsdotools.org/display/DOCECL/A.3+Cardinality+-+Valid+Expressions#FootnoteMarker1-0) | The SNOMED CT identifiers created with the '9999999' namespace are for example only, and should not be used in a production environment.                              |
-| [2](https://confluence.ihtsdotools.org/display/DOCECL/A.3+Cardinality+-+Valid+Expressions#FootnoteMarker2-0) | As mentioned earlier, only non-redundant defining attributes are included in the cardinality count. Because \<a href="http://snomed.info/id/62413002" title="62413002 |
+{% hint style="info" %}
+* The SNOMED CT identifiers created with the '9999999' namespace are for example only, and should not be used in a production environment.
+* As mentioned earlier, only non-redundant defining attributes are included in the cardinality count. Because \<a href="http://snomed.info/id/62413002" title="62413002
+{% endhint %}
