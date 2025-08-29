@@ -16,18 +16,10 @@ Figure 2 below shows an example of an [expression constraint](#user-content-fn-1
 
 ### **Details**
 
-Figure 3 below provides a non-normative representation of the logical model of the [SNOMED CT Expression Constraint Language](http://snomed.org/ecl) using a UML class diagram. Please note that each of the classes in this diagram corresponds to a rule in the syntax specification defined in [5 syntax-specification](<../5 syntax-specification/> "mention"). For a short description of each of these, please refer to [Section 5.4](../4%20logical-model/5.3-Informative-Comments_28739407.html).
+Figure 3 below provides a non-normative representation of the logical model of the SNOMED CT Expression Constraint Language using a UML class diagram. Please note that each of the classes in this diagram corresponds to a rule in the syntax specification defined in [5 syntax-specification](<../5 syntax-specification/> "mention"). For a short description of each of these, please refer to [#order-of-operation](<../5 syntax-specification/#order-of-operation> "mention").
 
 <figure><img src="../images/115872402.png" alt=""><figcaption></figcaption></figure>
 
 **Figure 3: Logical Model of Expression Constraint Language**
-
-
-
-***
-
-| Footnotes Ref                                                                             | Notes |
-| ----------------------------------------------------------------------------------------- | ----- |
-| [1](https://confluence.ihtsdotools.org/display/DOCECL/4.+Logical+Model#FootnoteMarker1-0) |       |
 
 [^1]: The expression constraint in Figure 2 is satisfied by concepts which are clinical findings **and** members of the cardiology reference set **and** have an attribute group that either has an associated morphology of infarct (or descendant) **or** are associated with myocardial infarction (or descendant). In addition, all matching concepts must also have a description that matches the term "card", has a language of English, has a type of \[

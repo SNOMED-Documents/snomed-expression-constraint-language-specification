@@ -70,7 +70,7 @@ In August 2022, version 2.1 was published to allow description filters to filter
 
 In November 2023 version 2.2 was published. This version added the ability to reference concepts using alternate identifiers, and also two convenience methods for finding the top (root) or bottom (leaf) concepts within a set.
 
-For a list of previous PDF versions, please refer to [Previous Versions](../1%20introduction/Previous-Versions_33493263.html).
+For a list of previous PDF versions, please refer to [appendix-f-previous-versions.md](../appendices/appendix-f-previous-versions.md "mention").
 
 ## Audience
 
@@ -92,7 +92,7 @@ This document defines the SNOMED CT Expression Constraint Language and describes
 
 In [4 logical-model](<../4 logical-model/> "mention"), the logical model of the Expression Constraint Language is presented, while in [5 syntax-specification](<../5 syntax-specification/> "mention") two syntaxes are defined using an ABNF serialisation of the logical model.&#x20;
 
-[Broken link](broken-reference "mention") then presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [7 implementation-considerations](<../7 implementation-considerations/> "mention") discusses some implementation considerations.&#x20;
+[Broken link](broken-reference "mention") then presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [Broken link](broken-reference "mention") discusses some implementation considerations.&#x20;
 
 [appendix-a-examples-of-valid-expressions](../appendix-a-examples-of-valid-expressions/ "mention") provides some examples of precoordinated and postcoordinated expressions that satisfy each of the expression constraints presented earlier in the document.&#x20;
 

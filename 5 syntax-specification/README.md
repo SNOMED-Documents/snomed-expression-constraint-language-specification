@@ -1084,5 +1084,3 @@ For example, the following search behaviour is expected in the locales specified
 | Ångström    | ångström, Ångström, ÅNGSTRÖM, aangström, Aangström, AANGSTRÖM, ...                                                                | angstrom, Angstrom, ANGSTROM, ångstrøm, Ångstrøm, ÅNGSTRØM, ångstrœm, Ångstrœm, ÅNGSTRŒM, ...                                 |
 | Ångstrøm    | ångstrøm, Ångstrøm, ÅNGSTRØM, ångström, Ångström, ÅNGSTRÖM, aangstrøm, Aangstrøm, AANGSTRØM, aangström, Aangström, AANGSTRÖM, ... | angstrom, Angstrom, ANGSTROM, ångstrœm, Ångstrœm, ÅNGSTRŒM, ...                                                               |
 | aangstrøm   | ångstrøm, Ångstrøm, ÅNGSTRØM, ångström, Ångström, ÅNGSTRÖM, aangstrøm, Aangstrøm, AANGSTRØM, aangström, Aangström, AANGSTRÖM, ... | angstrom, Angstrom, ANGSTROM, ångstrœm, Ångstrœm, ÅNGSTRŒM, ...                                                               |
-
-dd

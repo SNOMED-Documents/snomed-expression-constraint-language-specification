@@ -29,7 +29,6 @@
 
 ## Implementation Considerations
 
-* [Implementation Considerations](<7 implementation-considerations/README.md>)
 * [Authoring](<7 implementation-considerations/7.1-authoring.md>)
 * [Parsing](<7 implementation-considerations/7.2-parsing.md>)
 * [Validating](<7 implementation-considerations/7.3-validating.md>)
