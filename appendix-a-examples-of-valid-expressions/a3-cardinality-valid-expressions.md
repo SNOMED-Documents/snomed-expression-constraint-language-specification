@@ -8,3 +8,10 @@
 * The SNOMED CT identifiers created with the '9999999' namespace are for example only, and should not be used in a production environment.
 * As mentioned earlier, only non-redundant defining attributes are included in the cardinality count. Because \<a href="http://snomed.info/id/62413002" title="62413002
 {% endhint %}
+
+
+
+
+
+
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Cardinality%20-%20Valid%20Expressions" class="button primary">Provide Feedback</a>

@@ -37,3 +37,10 @@ The SNOMED CT Expression Constraint Language enables queries over SNOMED CT cont
 ## SNOMED CT Concept Model
 
 The SNOMED CT Concept Model is the set of rules that determines the permitted sets of attributes and values that may be applied to particular types of concepts. There are also additional rules on the cardinality and grouping of each type of attribute. The SNOMED CT Concept Model includes the definition of the domain and range of each attribute. The domain is the set of concepts which are permitted to be used as the source of the attribute, while the range is the set of concepts which are permitted to be used as the target of the attribute. For example, the domain of the attribute [363698007 | Finding site|](http://snomed.info/id/363698007) is the descendants and self of [404684003 | Clinical finding|](http://snomed.info/id/404684003) , while the range is the descendants and self of [442083009 | Anatomical or acquired body structure|](http://snomed.info/id/442083009) The SNOMED CT Concept Model rules are represented in a computable form in the [SNOMED CT Machine Readable Concept Model.](https://app.gitbook.com/o/h8Z6qGxuQrzM9vbx5bPT/s/wLJPOzgAQsSAYr6nhvCl/)
+
+
+
+
+
+
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Use%20Cases" class="button primary">Provide Feedback</a>

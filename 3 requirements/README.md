@@ -53,3 +53,10 @@ The language must support the ability to express SNOMED CT concept model constra
 In particular, the language must support the ability to define the domain and cardinality of each attribute in the SNOMED CT concept model, and the range of all concept model **object** attributes (whose range is a set of SNOMED CT concepts). The domain of an attribute is the set of valid source concepts of relationships of that type. In most cases, this will be defined as the descendants and self of a given concept. The range of a concept model object attribute is the set of valid destination concepts of relationships of that type. This will be defined as the set of concepts that match a given expression constraint. The cardinality of an attribute constrains the number of times an active relationship of this type can be added to a concept in the SNOMED CT snapshot release (in necessary normal form). For more information about the SNOMED CT necessary normal form, please refer to [Generating Necessary Normal Form Relationships from the OWL Refsets](https://app.gitbook.com/s/UVgNFMSypqSsi48DpFEe/design-considerations/2.5-generating-necessary-normal-form-relationships-from-the-owl-refsets "mention").
 
 Please note that the range of a concept model **data** attribute (whose value is concrete) will be specified using a value list constraint from the [SNOMED CT Template Syntax](https://app.gitbook.com/o/h8Z6qGxuQrzM9vbx5bPT/s/zMLFwMoInWP79jP2Up2p/).
+
+
+
+
+
+
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Requirements" class="button primary">Provide Feedback</a>

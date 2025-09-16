@@ -46,3 +46,10 @@ The following table provides some examples of each of the key syntax features of
 
 <table data-full-width="false"><thead><tr><th width="158.6875">Syntax</th><th>Evaluation Notes</th><th>Example</th><th>Example Expansion Concepts</th></tr></thead><tbody><tr><td>y : R a = x</td><td>Concepts in y that are destinations of attribute a from source x</td><td>&#x3C; 91723000 | Anatomical structure| : R 363698007 | Finding site| = &#x3C; 445945000 | Infectious disease associated with AIDS|</td><td>280369009 | Brain tissue structure|  <br><br>39607008 | Lung structure|</td></tr><tr><td>x . a</td><td>Values of attribute a from source x</td><td>&#x3C; 27658006 | Product containing amoxicillin| . 127489000 | Has active ingredient|</td><td>372687004 | Amoxicillin|  <br><br>395939008 | Clavulanic acid|</td></tr></tbody></table>
 
+
+
+
+
+
+
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Appendix%20D%20-%20ECL%20Quick%20Reference" class="button primary">Provide Feedback</a>
