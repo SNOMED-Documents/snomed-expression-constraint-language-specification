@@ -16,7 +16,7 @@ Figure 2 below shows an example of an [expression constraint](#user-content-fn-1
 
 ### **Details**
 
-Figure 3 below provides a non-normative representation of the logical model of the SNOMED CT Expression Constraint Language using a UML class diagram. Please note that each of the classes in this diagram corresponds to a rule in the syntax specification defined in [5 syntax-specification](<../5 syntax-specification/> "mention"). For a short description of each of these, please refer to [#order-of-operation](<../5 syntax-specification/#order-of-operation> "mention").
+Figure 3 below provides a non-normative representation of the logical model of the SNOMED CT Expression Constraint Language using a UML class diagram. Please note that each of the classes in this diagram corresponds to a rule in the syntax specification defined in [5-syntax-specification](../design/5-syntax-specification/ "mention"). For a short description of each of these, please refer to [#order-of-operation](../design/5-syntax-specification/#order-of-operation "mention").
 
 <figure><img src="../images/115872402.png" alt=""><figcaption></figcaption></figure>
 

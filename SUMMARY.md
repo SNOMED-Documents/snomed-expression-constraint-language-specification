@@ -10,22 +10,25 @@
 
 * [Requirements](<3 requirements/README.md>)
 * [Logical Model](<4 logical-model/README.md>)
-* [Syntax Specification](<5 syntax-specification/README.md>)
+* [Syntax Specification](design/5-syntax-specification/README.md)
+  * [Brief Syntax](design/5-syntax-specification/brief-syntax.md)
+  * [Long Syntax](design/5-syntax-specification/long-syntax.md)
+  * [ECL Core](design/5-syntax-specification/ecl-core.md)
 
-## Examples
+## Behaviour Specification with Examples
 
-* [Simple Expression Constraints](<6 examples/6.1-simple-expression-constraints.md>)
-* [Refinements](<6 examples/6.2-refinements.md>)
-* [Cardinality](<6 examples/6.3-cardinality.md>)
-* [Conjunction and Disjunction](<6 examples/6.4-conjunction-and-disjunction.md>)
-* [Exclusion and Not Equals](<6 examples/6.5-exclusion-and-not-equals.md>)
-* [Constraint Comments](<6 examples/6.6-constraint-comments.md>)
-* [Nested Expression Constraints](<6 examples/6.7-nested-expression-constraints.md>)
-* [Description Filters](<6 examples/6.8-description-filters.md>)
-* [Concept Filters](<6 examples/6.9-concept-filters.md>)
-* [Member Filters](<6 examples/6.10-member-filters.md>)
-* [History Supplements](<6 examples/6.11-history-supplements.md>)
-* [Top and Bottom](<6 examples/6.12-top-and-bottom.md>)
+* [Simple Expression Constraints](behaviour-specification-with-examples/6.1-simple-expression-constraints.md)
+* [Refinements](behaviour-specification-with-examples/6.2-refinements.md)
+* [Cardinality](behaviour-specification-with-examples/6.3-cardinality.md)
+* [Conjunction and Disjunction](behaviour-specification-with-examples/6.4-conjunction-and-disjunction.md)
+* [Exclusion and Not Equals](behaviour-specification-with-examples/6.5-exclusion-and-not-equals.md)
+* [Constraint Comments](behaviour-specification-with-examples/6.6-constraint-comments.md)
+* [Nested Expression Constraints](behaviour-specification-with-examples/6.7-nested-expression-constraints.md)
+* [Description Filters](behaviour-specification-with-examples/6.8-description-filters.md)
+* [Concept Filters](behaviour-specification-with-examples/6.9-concept-filters.md)
+* [Member Filters](behaviour-specification-with-examples/6.10-member-filters.md)
+* [History Supplements](behaviour-specification-with-examples/6.11-history-supplements.md)
+* [Top and Bottom](behaviour-specification-with-examples/6.12-top-and-bottom.md)
 
 ## Implementation Considerations
 

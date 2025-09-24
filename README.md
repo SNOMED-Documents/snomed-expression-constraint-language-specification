@@ -2,7 +2,7 @@
 
 The _Expression Constraint Language_ is a formal syntax for representing SNOMED CT expression constraints. Expression constraints are computable rules used to define a bounded set of clinical meanings represented by either precoordinated or postcoordinated expressions. Expression constraints can be used to restrict the valid values for a data element in an EHR, as the intensional definition of a concept-based reference set, as a machine processable query that identifies a set of matching expressions, or as a constraint that restricts the range of an attribute defined in the SNOMED CT concept model.
 
-This document defines and describes the current version of the Expression Constraint Language - ECL v2.2.
+This document defines and describes the current version of the Expression Constraint Language - ECL v2.3 (In Development).
 
 ***
 

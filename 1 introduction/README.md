@@ -8,7 +8,11 @@ In contrast, a _SNOMED CT Expression Constraint_ is a computable rule that can b
 
 ## Purpose
 
-The purpose of this document is to define and describe a formal language for representing SNOMED CT Expression Constraints. A SNOMED CT Expression Constraint is a computable rule that defines a bounded set of clinical meanings represented by either precoordinated or postcoordinated expressions. Two equivalent syntaxes are presented – a brief syntax, which is designed to be as compact as possible for interoperable communication between systems, and a long syntax, which introduces textual alternatives to the symbols from the brief syntax. This document also provides examples and guidance to assist in the implementation of this language.
+The purpose of this document is to define and describe a formal language for representing SNOMED CT Expression Constraints. A SNOMED CT Expression Constraint is a computable rule that defines a bounded set of clinical meanings represented by either precoordinated or postcoordinated expressions.&#x20;
+
+Two equivalent syntaxes are presented – a brief syntax, which is designed to be as compact as possible for interoperable communication between systems, and a long syntax, which introduces textual alternatives to the symbols from the brief syntax. There is also an ECL Core profile, which is a subset of the Expression Constraint Language, intended to reduce tooling requirements.&#x20;
+
+This document also provides examples and guidance to assist in the implementation of this language.
 
 ## Scope
 
@@ -80,25 +84,25 @@ The target audiences of this document include:
 * SNOMED CT designers and developers, including designers and developers of EHR systems, information models, data entry interfaces, storage systems, decision support systems, retrieval and analysis systems, communication standards and terminology services;
 * SNOMED CT terminology developers, including concept model designers, content authors, map developers, subset and constraint developers and release process managers.
 
-It should be noted that this document contains both technical and non-technical content. In particular, the detailed logical model and formal syntax is specifically focussed at more technical readers. Less technical readers are encouraged to read the introductory material (including the use cases and requirements) and the extensive set of examples that is presented. It should also be noted that even though complex expression constraints are possible, most expression constraints are likely to be very simple, such as those described in [Simple Expression Constraints](<../6 examples/6.1-simple-expression-constraints.md>).
+It should be noted that this document contains both technical and non-technical content. In particular, the detailed logical model and formal syntax is specifically focussed at more technical readers. Less technical readers are encouraged to read the introductory material (including the use cases and requirements) and the extensive set of examples that is presented. It should also be noted that even though complex expression constraints are possible, most expression constraints are likely to be very simple, such as those described in [Simple Expression Constraints](../behaviour-specification-with-examples/6.1-simple-expression-constraints.md).
 
 ## Document Overview
 
-This document defines the SNOMED CT Expression Constraint Language and describes how and where it may be implemented.&#x20;
+This document defines the SNOMED CT Expression Constraint Language and describes how and where it may be implemented.
 
-[2 use-cases](<../2 use-cases/> "mention")begins by describing the use cases in which it is anticipated that SNOMED CT Expression Constraint Language will be used.&#x20;
+[2 use-cases](<../2 use-cases/> "mention")begins by describing the use cases in which it is anticipated that SNOMED CT Expression Constraint Language will be used.
 
-[3 requirements](<../3 requirements/> "mention") then describes the requirements used to guide the definition of this language.&#x20;
+[3 requirements](<../3 requirements/> "mention") then describes the requirements used to guide the definition of this language.
 
-In [4 logical-model](<../4 logical-model/> "mention"), the logical model of the Expression Constraint Language is presented, while in [5 syntax-specification](<../5 syntax-specification/> "mention") two syntaxes are defined using an ABNF serialisation of the logical model.&#x20;
+In [4 logical-model](<../4 logical-model/> "mention"), the logical model of the Expression Constraint Language is presented, while in [5-syntax-specification](../design/5-syntax-specification/ "mention") two syntaxes are defined using an ABNF serialisation of the logical model.
 
-[Broken link](broken-reference "mention") then presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [Broken link](broken-reference "mention") discusses some implementation considerations.&#x20;
+[broken-reference](../1%20introduction/broken-reference/ "mention") then presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [broken-reference](../1%20introduction/broken-reference/ "mention") discusses some implementation considerations.
 
-[appendix-a-examples-of-valid-expressions](../appendix-a-examples-of-valid-expressions/ "mention") provides some examples of precoordinated and postcoordinated expressions that satisfy each of the expression constraints presented earlier in the document.&#x20;
+[appendix-a-examples-of-valid-expressions](../appendix-a-examples-of-valid-expressions/ "mention") provides some examples of precoordinated and postcoordinated expressions that satisfy each of the expression constraints presented earlier in the document.
 
-[appendix-b-examples-of-invalid-expressions](../appendix-b-examples-of-invalid-expressions/ "mention") then provides some examples that do not satisfy these expression constraints.&#x20;
+[appendix-b-examples-of-invalid-expressions](../appendix-b-examples-of-invalid-expressions/ "mention") then provides some examples that do not satisfy these expression constraints.
 
-[appendix-c-dialect-aliases.md](../appendix-c-dialect-aliases.md "mention") provides a list of example aliases that may be used to specify a particular dialect in an ECL filter constraint.&#x20;
+[appendix-c-dialect-aliases.md](../appendix-c-dialect-aliases.md "mention") provides a list of example aliases that may be used to specify a particular dialect in an ECL filter constraint.
 
 [appendix-d-ecl-quick-reference.md](../appendix-d-ecl-quick-reference.md "mention") provides a quick reference to the key syntax features of the Expression Constraint Language. And finally,.
 
