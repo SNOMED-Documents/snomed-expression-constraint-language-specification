@@ -5,7 +5,7 @@
 The following ABNF definition specifies the Brief Syntax of the SNOMED CT Expression Constraint Language.\
 This ABNF syntax and the ANTLR syntax is maintained in the [SNOMED Expression Constraint Language GitHub](https://github.com/IHTSDO/snomed-expression-constraint-language) repository.
 
-{% code title="ECL 2.1 Brief Syntax" overflow="wrap" lineNumbers="true" fullWidth="true" %}
+{% code title="ECL 2.2 Brief Syntax" overflow="wrap" lineNumbers="true" fullWidth="true" %}
 ```abnf
 expressionConstraint = ws ( refinedExpressionConstraint / compoundExpressionConstraint / dottedExpressionConstraint / subExpressionConstraint ) ws
 refinedExpressionConstraint = subExpressionConstraint ws ":" ws eclRefinement
@@ -15,10 +15,12 @@ disjunctionExpressionConstraint = subExpressionConstraint 1*(ws disjunction ws s
 exclusionExpressionConstraint = subExpressionConstraint ws exclusion ws subExpressionConstraint
 dottedExpressionConstraint = subExpressionConstraint 1*(ws dottedExpressionAttribute)
 dottedExpressionAttribute = dot ws eclAttributeName
-subExpressionConstraint= [constraintOperator ws] ( ( [memberOf ws] (eclFocusConcept / "(" ws expressionConstraint ws ")") *(ws memberFilterConstraint)) / (eclFocusConcept / "(" ws expressionConstraint ws ")") ) *(ws (descriptionFilterConstraint / conceptFilterConstraint)) [ws historySupplement]
+subExpressionConstraint = [constraintOperator ws] ( ( [refsetOperator ws] (eclFocusConcept / "(" ws expressionConstraint ws ")") *(ws memberFilterConstraint)) / (eclFocusConcept / "(" ws expressionConstraint ws ")") ) *(ws (descriptionFilterConstraint / conceptFilterConstraint)) [ws historySupplement]
 eclFocusConcept = eclConceptReference / wildCard / altIdentifier
 dot = "."
+refsetOperator = memberOf / refsetContainingAny
 memberOf = "^" [ ws "[" ws (refsetFieldNameSet / wildCard) ws "]" ]
+refsetContainingAny = "^R"
 refsetFieldNameSet = refsetFieldName *(ws "," ws refsetFieldName)
 refsetFieldName = 1*alpha
 eclConceptReference = conceptId [ws "|" ws term ws "|"]
@@ -53,7 +55,7 @@ conjunctionAttributeSet = 1*(ws conjunction ws subAttributeSet)
 disjunctionAttributeSet = 1*(ws disjunction ws subAttributeSet)
 subAttributeSet = eclAttribute / "(" ws eclAttributeSet ws ")"
 eclAttributeGroup = ["[" cardinality "]" ws] "{" ws eclAttributeSet ws "}"
-eclAttribute = ["[" cardinality "]" ws] [reverseFlag ws] eclAttributeName ws (expressionComparisonOperator ws subExpressionConstraint / numericComparisonOperator ws "#" numericValue / stringComparisonOperator ws (typedSearchTerm / typedSearchTermSet) / booleanComparisonOperator ws booleanValue)
+eclAttribute = ["[" cardinality "]" ws] [reverseFlag ws] eclAttributeName ws (expressionComparisonOperator ws subExpressionConstraint / numericComparisonOperator ws "#" numericValue / stringComparisonOperator ws (concreteString / concreteStringSet) / booleanComparisonOperator ws booleanValue)
 cardinality = minValue to maxValue
 minValue = nonNegativeIntegerValue
 to = ".."
@@ -77,6 +79,9 @@ termFilter = termKeyword ws stringComparisonOperator ws (typedSearchTerm / typed
 termKeyword = ("t"/"T") ("e"/"E") ("r"/"R") ("m"/"M")
 typedSearchTerm = ( [ matchKeyword ws ":" ws ] matchSearchTermSet ) / ( wild ws ":" ws wildSearchTermSet )
 typedSearchTermSet = "(" ws typedSearchTerm *(mws typedSearchTerm) ws ")"
+concreteStringSet = "(" ws concreteString *(mws concreteString) ws ")"
+concreteString = QM concreteStringCharacters QM
+concreteStringCharacters = 1*(anyNonEscapedChar / escapedWildChar)
 wild = ("w"/"W") ("i"/"I") ("l"/"L") ("d"/"D")
 matchKeyword = ("m"/"M") ("a"/"A") ("t"/"T") ("c"/"C") ("h"/"H")
 matchSearchTerm = 1*(nonwsNonEscapedChar / escapedChar)
@@ -133,7 +138,7 @@ month = "01" / "02" / "03" / "04" / "05" / "06" / "07" / "08" / "09" / "10" / "1
 day = "01" / "02" / "03" / "04" / "05" / "06" / "07" / "08" / "09" / "10" / "11" / "12" / "13" / "14" / "15" / "16" / "17" / "18" / "19" / "20" / "21" / "22" / "23" / "24" / "25" / "26" / "27" / "28" / "29" / "30" / "31"
 activeFilter = activeKeyword ws booleanComparisonOperator ws activeValue
 activeKeyword = ("a"/"A") ("c"/"C") ("t"/"T") ("i"/"I") ("v"/"V") ("e"/"E")
-activeValue = activeTrueValue / activeFalseValue
+activeValue = activeTrueValue / activeFalseValue / wildCard
 activeTrueValue = "1" / "true"
 activeFalseValue = "0" / "false"
 memberFilterConstraint = "{{" ws ("m" / "M") ws memberFilter *(ws "," ws memberFilter) ws "}}"
