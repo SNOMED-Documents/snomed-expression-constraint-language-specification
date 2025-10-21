@@ -13,7 +13,7 @@
 * [Syntax Specification](design/5-syntax-specification/README.md)
   * [Brief Syntax](design/5-syntax-specification/brief-syntax.md)
   * [Long Syntax](design/5-syntax-specification/long-syntax.md)
-  * [ECL Core Syntax](design/5-syntax-specification/long-syntax-1.md)
+  * [ECL Core Brief Syntax](design/5-syntax-specification/long-syntax-1.md)
 
 ## Behaviour Specification with Examples
 

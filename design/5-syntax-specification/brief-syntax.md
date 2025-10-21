@@ -1,7 +1,5 @@
 # Brief Syntax
 
-## Brief Syntax
-
 The following ABNF definition specifies the Brief Syntax of the SNOMED CT Expression Constraint Language.\
 This ABNF syntax and the ANTLR syntax is maintained in the [SNOMED Expression Constraint Language GitHub](https://github.com/IHTSDO/snomed-expression-constraint-language) repository.
 

@@ -1,7 +1,5 @@
 # Long Syntax
 
-## Long Syntax
-
 The following ABNF definition specifies the Long Syntax the SNOMED CT Expression Constraint Language. Please note that all keywords are case insensitive.\
 This ABNF syntax and the ANTLR syntax is maintained in the [SNOMED Expression Constraint Language GitHub](https://github.com/IHTSDO/snomed-expression-constraint-language) repository.
 

@@ -1,6 +1,4 @@
-# ECL Core Syntax
-
-## Core Syntax
+# ECL Core Brief Syntax
 
 The following ABNF definition specifies the ECL Core Syntax, a subset of the SNOMED CT Expression Constraint Language. \
 This ABNF syntax and the ANTLR syntax is maintained in the [SNOMED Expression Constraint Language GitHub](https://github.com/IHTSDO/snomed-expression-constraint-language) repository.
