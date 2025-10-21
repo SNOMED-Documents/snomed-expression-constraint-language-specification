@@ -5,7 +5,7 @@
 The following ABNF definition specifies the Brief Syntax of the SNOMED CT Expression Constraint Language.\
 This ABNF syntax and the ANTLR syntax is maintained in the [SNOMED Expression Constraint Language GitHub](https://github.com/IHTSDO/snomed-expression-constraint-language) repository.
 
-{% code title="ECL 2.2 Brief Syntax" overflow="wrap" lineNumbers="true" fullWidth="true" %}
+{% code title="ECL 2.3 Brief Syntax" overflow="wrap" lineNumbers="true" fullWidth="true" %}
 ```abnf
 expressionConstraint = ws ( refinedExpressionConstraint / compoundExpressionConstraint / dottedExpressionConstraint / subExpressionConstraint ) ws
 refinedExpressionConstraint = subExpressionConstraint ws ":" ws eclRefinement
