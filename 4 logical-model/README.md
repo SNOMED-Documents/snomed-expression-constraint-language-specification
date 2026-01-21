@@ -4,13 +4,13 @@ A SNOMED CT Expression Constraint contains either a single focus concept, or a s
 
 Figure 1 below illustrates the overall structure of an expression constraint using an abstract representation. Those parts of an expression constraint, which are in common with [SNOMED CT Compositional Grammar Specification](https://app.gitbook.com/o/h8Z6qGxuQrzM9vbx5bPT/s/VgpC90r7t9DyATri97GG/ "mention") expressions, are shown with dotted lines to emphasise the new features (using solid lines) in the Expression Constraint Language. Please note that no specific semantics should be attributed to each arrow in this abstract diagram.
 
-<figure><img src="../images/115872399.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/115872399.png" alt=""><figcaption></figcaption></figure>
 
 **Figure 1: Abstract Model of a SNOMED CT Expression Constraint**
 
 Figure 2 below shows an example of an [expression constraint](#user-content-fn-1)[^1] with the main components marked. These components will be explained further in the subsequent sections of this document.
 
-<figure><img src="../images/115872397.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/115872397.png" alt=""><figcaption></figcaption></figure>
 
 **Figure 2: The main components of an example expression constraint**
 
@@ -18,15 +18,10 @@ Figure 2 below shows an example of an [expression constraint](#user-content-fn-1
 
 Figure 3 below provides a non-normative representation of the logical model of the SNOMED CT Expression Constraint Language using a UML class diagram. Please note that each of the classes in this diagram corresponds to a rule in the syntax specification defined in [5-syntax-specification](../design/5-syntax-specification/ "mention"). For a short description of each of these, please refer to [#order-of-operation](../design/5-syntax-specification/#order-of-operation "mention").
 
-<figure><img src="../images/115872402.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/115872402.png" alt=""><figcaption></figcaption></figure>
 
 **Figure 3: Logical Model of Expression Constraint Language**
 
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&#x26;entry.1767247133=ECL+Specification&#x26;entry.670899847=Logical%20Model" class="button primary">Provide Feedback</a>
+
 [^1]: The expression constraint in Figure 2 is satisfied by concepts which are clinical findings **and** members of the cardiology reference set **and** have an attribute group that either has an associated morphology of infarct (or descendant) **or** are associated with myocardial infarction (or descendant). In addition, all matching concepts must also have a description that matches the term "card", has a language of English, has a type of \[
-
-
-
-
-
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Logical%20Model" class="button primary">Provide Feedback</a>
