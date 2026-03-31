@@ -98,7 +98,7 @@ This document defines the SNOMED CT Expression Constraint Language and describes
 
 In [4 logical-model](<../4 logical-model/> "mention"), the logical model of the Expression Constraint Language is presented, while in [5-syntax-specification](../design/5-syntax-specification/ "mention") two syntaxes are defined using an ABNF serialisation of the logical model.
 
-[broken-reference](../1%20introduction/broken-reference/ "mention") then presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [broken-reference](../1%20introduction/broken-reference/ "mention") discusses some implementation considerations.
+[Broken link](/broken/pages/xydaGq9pY6dG5XWa0SCP "mention") presents some examples of expression constraints that conform to the SNOMED CT Expression Constraint syntaxes, and [Broken link](/broken/pages/klYlTFUYVlafbKZAQvWO "mention") discusses some implementation considerations.
 
 [appendix-a-examples-of-valid-expressions](../appendix-a-examples-of-valid-expressions/ "mention") provides some examples of precoordinated and postcoordinated expressions that satisfy each of the expression constraints presented earlier in the document.
 
