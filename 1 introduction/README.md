@@ -8,9 +8,9 @@ In contrast, a _SNOMED CT Expression Constraint_ is a computable rule that can b
 
 ## Purpose
 
-The purpose of this document is to define and describe a formal language for representing SNOMED CT Expression Constraints. A SNOMED CT Expression Constraint is a computable rule that defines a bounded set of clinical meanings represented by either precoordinated or postcoordinated expressions.&#x20;
+The purpose of this document is to define and describe a formal language for representing SNOMED CT Expression Constraints. A SNOMED CT Expression Constraint is a computable rule that defines a bounded set of clinical meanings represented by either precoordinated or postcoordinated expressions.
 
-Two equivalent syntaxes are presented – a brief syntax, which is designed to be as compact as possible for interoperable communication between systems, and a long syntax, which introduces textual alternatives to the symbols from the brief syntax. There is also an ECL Core profile, which is a subset of the Expression Constraint Language, intended to reduce tooling requirements.&#x20;
+Two equivalent syntaxes are presented – a brief syntax, which is designed to be as compact as possible for interoperable communication between systems, and a long syntax, which introduces textual alternatives to the symbols from the brief syntax. There is also an ECL Core profile, which is a subset of the Expression Constraint Language, intended to reduce tooling requirements.
 
 This document also provides examples and guidance to assist in the implementation of this language.
 
@@ -74,6 +74,8 @@ In August 2022, version 2.1 was published to allow description filters to filter
 
 In November 2023 version 2.2 was published. This version added the ability to reference concepts using alternate identifiers, and also two convenience methods for finding the top (root) or bottom (leaf) concepts within a set.
 
+ECL Core was introduced with version 2.3 in March 2026. This version also added the active filter wildcard, the refsetContainingAny operator and simplified concrete string matching.
+
 For a list of previous PDF versions, please refer to [appendix-f-previous-versions.md](../appendices/appendix-f-previous-versions.md "mention").
 
 ## Audience
@@ -108,9 +110,4 @@ In [4 logical-model](<../4 logical-model/> "mention"), the logical model of the 
 
 [appendix-e-reference-set-fields.md](../appendix-e-reference-set-fields.md "mention") explains how reference set field names are used in ECL 2.0+.
 
-
-
-
-
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Introduction" class="button primary">Provide Feedback</a>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&#x26;entry.1767247133=ECL+Specification&#x26;entry.670899847=Introduction" class="button primary">Provide Feedback</a>
