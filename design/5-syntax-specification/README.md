@@ -12,6 +12,8 @@ Please note that by default each expression constraint is evaluated against only
 
 [long-syntax.md](long-syntax.md "mention")
 
+[long-syntax-1.md](long-syntax-1.md "mention")
+
 ## Informative Comments
 
 This section provides a short description of each ABNF rule listed above. The related brief and long syntax rules are grouped together with the same description.
@@ -719,9 +721,4 @@ For example, the following search behaviour is expected in the locales specified
 | Ångstrøm    | ångstrøm, Ångstrøm, ÅNGSTRØM, ångström, Ångström, ÅNGSTRÖM, aangstrøm, Aangstrøm, AANGSTRØM, aangström, Aangström, AANGSTRÖM, ... | angstrom, Angstrom, ANGSTROM, ångstrœm, Ångstrœm, ÅNGSTRŒM, ...                                                               |
 | aangstrøm   | ångstrøm, Ångstrøm, ÅNGSTRØM, ångström, Ångström, ÅNGSTRÖM, aangstrøm, Aangstrøm, AANGSTRØM, aangström, Aangström, AANGSTRÖM, ... | angstrom, Angstrom, ANGSTROM, ångstrœm, Ångstrœm, ÅNGSTRŒM, ...                                                               |
 
-
-
-
-
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&entry.1767247133=ECL+Specification&entry.670899847=Syntax%20Specification" class="button primary">Provide Feedback</a>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScTmbZIf0UEQwYDkY27EEWBkaiYkHSbR0_9DmFrMLXoQLyL7Q/viewform?usp=pp_url&#x26;entry.1767247133=ECL+Specification&#x26;entry.670899847=Syntax%20Specification" class="button primary">Provide Feedback</a>
